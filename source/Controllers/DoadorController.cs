@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using source.Models;
 using source.Service;
+using source.Service.Interfaces;
 using source.ViewModel.Doador;
 using System;
 using System.Collections.Generic;
@@ -23,8 +25,9 @@ namespace source.Controllers
         [HttpGet("{id:int}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<CadastroDoadorVM>> Get(int id)
+        public async Task<ActionResult<CadastroDoadorVM>> Get([FromServices] INoSql noSql, int id)
         {
+            await noSql.InsertOrUpdateAsync(new Doador() { Nome = "Thiago" });
             return Ok();
         }
 
