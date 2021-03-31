@@ -11,6 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using source.Models;
+using source.Service.Data;
+using source.Service.Interfaces;
+using source.Service.Repository;
 
 namespace source
 {
@@ -26,6 +30,8 @@ namespace source
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<INoSql, NoSql>();
+            services.AddScoped<IRepository<Doador>, DoadorRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

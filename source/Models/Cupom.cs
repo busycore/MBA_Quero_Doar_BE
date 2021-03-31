@@ -1,13 +1,14 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using source.Service.Interfaces;
 using System;
 
 namespace source.Models
 {
-    public class Cupom
+    public class Cupom : IModelBase
     {
         [BsonId]
-        public ObjectId Id {get; set;}
+        public ObjectId _id {get; set;}
         public string Nome { get; set; }
         public decimal Valor { get; set; }
         public Empresa Parceria { get; set; }

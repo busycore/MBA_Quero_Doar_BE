@@ -21,3 +21,4 @@ bld/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
+/source/Properties/launchSettings.json
