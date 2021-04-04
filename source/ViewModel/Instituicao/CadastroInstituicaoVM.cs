@@ -1,4 +1,6 @@
-﻿namespace source.ViewModel.Instituicao
+﻿using source.ViewModel.SetorAtuacao;
+
+namespace source.ViewModel.Instituicao
 {
     public class CadastroInstituicaoVM
     {

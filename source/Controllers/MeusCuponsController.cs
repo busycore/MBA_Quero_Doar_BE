@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using source.Service;
-using source.ViewModel;
+using source.ViewModel.MinhaConta;
 using System;
 using System.Collections.Generic;
 using System.Linq;
