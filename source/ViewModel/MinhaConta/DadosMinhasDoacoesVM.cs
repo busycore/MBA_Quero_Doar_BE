@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace source.ViewModel
+namespace source.ViewModel.MinhaConta
 {
     public class DadosMinhasDoacoesVM
     {

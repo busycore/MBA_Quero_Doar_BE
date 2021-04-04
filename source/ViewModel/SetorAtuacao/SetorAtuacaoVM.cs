@@ -1,4 +1,4 @@
-﻿namespace source.ViewModel
+﻿namespace source.ViewModel.SetorAtuacao
 {
     public class SetorAtuacaoVM
     {

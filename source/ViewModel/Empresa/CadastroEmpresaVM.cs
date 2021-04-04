@@ -1,9 +1,8 @@
-﻿namespace source.ViewModel
+namespace source.ViewModel.Empresa
 {
-    public class CadastroInstituicaoVM
+    public class CadastroEmpresaVM
     {
         public string Nome { get; set; }
-        public SetorAtuacaoVM SetorAtuacaoVM { get; set; }
         public string CNPJ { get; set; }
         public string Site { get; set; }
         public string PessoaContato { get; set; }

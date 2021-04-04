@@ -1,4 +1,4 @@
-﻿namespace source.ViewModel
+﻿namespace source.ViewModel.Pagamento
 {
     public class CadastroPagamentoVM
     {
