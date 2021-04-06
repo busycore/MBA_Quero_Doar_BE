@@ -8,8 +8,8 @@ namespace source.Service.Interfaces
 {
     public interface IRepository <T> where T : class
     {
-        Task InsertAsync(T entity);
-        Task UpdateAsync(T entity);
+        Task InsertOrUpdateAsync(T entity);
         Task<IEnumerable<T>> GetByAsync(Expression<Func<T, bool>> filter);
+        Task<T> GetDocumentByID(string _id);
     }
 }

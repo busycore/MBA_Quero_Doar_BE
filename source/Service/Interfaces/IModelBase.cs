@@ -10,6 +10,6 @@ namespace source.Service.Interfaces
     public interface IModelBase
     {
         [BsonId]
-        ObjectId _id { get; set; }
+        public ObjectId _id { get; set; }
     }
 }

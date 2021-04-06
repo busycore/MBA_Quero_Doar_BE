@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using source.Models;
+using source.Service;
 using source.Service.Data;
 using source.Service.Interfaces;
 using source.Service.Repository;
@@ -31,6 +32,8 @@ namespace source
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<INoSql, NoSql>();
+            services.AddScoped<DoadorService>();
+            services.AddScoped<DoadorRepository>();
             services.AddScoped<IRepository<Doador>, DoadorRepository>();
 
             services.AddControllers();

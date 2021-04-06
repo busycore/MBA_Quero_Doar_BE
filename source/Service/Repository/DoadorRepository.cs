@@ -1,4 +1,5 @@
-﻿using source.Models;
+﻿using MongoDB.Bson;
+using source.Models;
 using source.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,19 +11,28 @@ namespace source.Service.Repository
 {
     public class DoadorRepository : IRepository<Doador>
     {
-        public Task<IEnumerable<Doador>> GetByAsync(Expression<Func<Doador, bool>> filter)
+        private readonly INoSql _noSql;
+
+        public DoadorRepository(INoSql noSql)
         {
-            throw new NotImplementedException();
+            _noSql = noSql;
         }
 
-        public Task InsertAsync(Doador entity)
+        public async Task<IEnumerable<Doador>> GetByAsync(Expression<Func<Doador, bool>> filter)
         {
-            throw new NotImplementedException();
+            var doador = await _noSql.GetDocumentsByFilter<Doador>(filter);
+            return doador;
         }
 
-        public Task UpdateAsync(Doador entity)
+        public async Task<Doador> GetDocumentByID(string _id)
         {
-            throw new NotImplementedException();
+            var doador = await _noSql.GetDocumentByID<Doador>(_id);
+            return doador;
+        }
+
+        public async Task InsertOrUpdateAsync(Doador entity)
+        {
+            await _noSql.InsertOrUpdateAsync(entity);
         }
     }
 }

@@ -1,17 +1,10 @@
-using MongoDB.Bson;
-using source.Service.Interfaces;
-using System;
+﻿using System;
 
-namespace source.Models
+namespace source.ViewModel.Doador
 {
-    public class Doador : IModelBase
+    public class AtualizaDoadorVM
     {
-        public Doador()
-        {
-            _id = ObjectId.GenerateNewId();
-        }
-
-        public ObjectId _id { get; set; }
+        public string id { get; set; }
         public string Nome { get; set; }
         public string CPF { get; set; }
         public string Telefone { get; set; }

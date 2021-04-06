@@ -18,6 +18,7 @@ namespace source.Service.Data
 
         public NoSql()
         {
+            
             client = new MongoClient(Environment.GetEnvironmentVariable("CONNECTION_STRING"));
             _databaseName = "querodoar";
         }
@@ -70,13 +71,13 @@ namespace source.Service.Data
             return _item;
         }
 
-        public T GetDocumentByID<T>(string _id) where T : IModelBase
+        public async Task<T> GetDocumentByID<T>(string _id) where T : IModelBase
         {
             var collection = this.GetCollection<T>();
 
-            var _query = collection.AsQueryable().Where(m => m._id == new ObjectId(_id));
-            var _result = _query.ToList();
-            return _result.FirstOrDefault();
+            var _resultado = await collection.FindAsync<T>(m => m._id == new ObjectId(_id));
+            var _result = await _resultado.FirstOrDefaultAsync();
+            return _result;
         }
 
         public async Task<IEnumerable<T>> GetAllDocument<T>() where T : IModelBase

@@ -1,12 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using source.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using source.Service;
-using source.Service.Interfaces;
 using source.ViewModel.Doador;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace source.Controllers
@@ -22,21 +16,48 @@ namespace source.Controllers
             this._doadorService = doadorService;
         }
 
-        [HttpGet("{id:int}")]
+        /// <summary>
+        /// Método para consultar um Doador através do Id
+        /// </summary>
+        /// <param name="id">Código do Doador</param>
+        /// <returns>Entidade ViewModel Doador</returns>
+        [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<CadastroDoadorVM>> Get([FromServices] INoSql noSql, int id)
+        public async Task<ActionResult<DadosDoadorVM>> Consultar(string id)
         {
-            await noSql.InsertOrUpdateAsync(new Doador() { Nome = "Thiago" });
-            return Ok();
+            var dadosDoadorVM = await _doadorService.Consultar(id);
+
+            if (dadosDoadorVM == null)
+                return NotFound("Doador não localizado");
+
+            return Ok(dadosDoadorVM);
         }
 
+        /// <summary>
+        /// Método para gravar um novo Doador
+        /// </summary>
+        /// <param name="cadastroDoadorVM">Entidade ViewModel cadastroDoadorVM</param>
+        /// <returns>Código do Doador</returns>
         [HttpPost]
         [ProducesResponseType(200)]
         public async Task<ActionResult<int>> Salvar(CadastroDoadorVM cadastroDoadorVM)
         {
-            int _id_cliente = 0;//await _clienteService.SalvarCliente(value);
-            return Ok(new { id_cliente = _id_cliente });
+            string id = await _doadorService.Salvar(cadastroDoadorVM);
+            return Ok(new { id });
+        }
+
+        /// <summary>
+        /// Método para atualizar as informações do Doador
+        /// </summary>
+        /// <param name="atualizaDoadorVM">Entidade ViewModel atualizaDoadorVM</param>
+        /// <returns>Resultado da requisição</returns>
+        [HttpPut]
+        [ProducesResponseType(200)]
+        public async Task<ActionResult> Atualizar(AtualizaDoadorVM atualizaDoadorVM)
+        {
+            await _doadorService.Atualizar(atualizaDoadorVM);
+            return Ok();
         }
     }
 }
