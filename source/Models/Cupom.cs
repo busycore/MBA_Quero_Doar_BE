@@ -7,6 +7,11 @@ namespace source.Models
 {
     public class Cupom : IModelBase
     {
+        public Cupom()
+        {
+            _id = ObjectId.GenerateNewId();
+        }
+
         [BsonId]
         public ObjectId _id {get; set;}
         public string Nome { get; set; }
