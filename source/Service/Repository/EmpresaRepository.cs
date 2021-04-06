@@ -19,18 +19,17 @@ namespace source.Service.Repository
 
         public async Task<IEnumerable<Empresa>> GetByAsync(Expression<Func<Empresa, bool>> filter)
         {
-            var empresas = await _noSql.GetDocumentsByFilter<Empresa>(filter);
-            return empresas;
+            return await _noSql.GetDocumentsByFilter<Empresa>(filter);
         }
 
-        public Task<Empresa> GetDocumentByID(string _id)
+        public async Task<Empresa> GetDocumentByID(string _id)
         {
-            throw new NotImplementedException();
+            return await _noSql.GetDocumentByID<Empresa>(_id);
         }
 
-        public Task InsertOrUpdateAsync(Empresa entity)
+        public async Task InsertOrUpdateAsync(Empresa entity)
         {
-            throw new NotImplementedException();
+            await _noSql.InsertOrUpdateAsync(entity);
         }
     }
 }
