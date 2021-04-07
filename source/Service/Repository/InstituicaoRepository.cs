@@ -18,16 +18,19 @@ namespace source.Service.Repository
             _noSql = noSql;
         }
 
+        public async Task<IEnumerable<Instituicao>> GetAllDocument()
+        {
+            return await _noSql.GetAllDocument<Instituicao>();
+        }
+
         public async Task<IEnumerable<Instituicao>> GetByAsync(Expression<Func<Instituicao, bool>> filter)
         {
-            var instiuicao = await _noSql.GetDocumentsByFilter<Instituicao>(filter);
-            return instiuicao;
+            return await _noSql.GetDocumentsByFilter<Instituicao>(filter);
         }
 
         public async Task<Instituicao> GetDocumentByID(string _id)
         {
-            var instiuicao = await _noSql.GetDocumentByID<Instituicao>(_id);
-            return instiuicao;
+            return await _noSql.GetDocumentByID<Instituicao>(_id);
         }
 
         public async Task InsertOrUpdateAsync(Instituicao entity)

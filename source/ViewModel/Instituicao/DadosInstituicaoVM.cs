@@ -6,7 +6,7 @@ namespace source.ViewModel.Instituicao
     {
         public string id { get; set; }
         public string Nome { get; set; }
-        public SetorAtuacaoVM SetorAtuacaoVM { get; set; }
+        public DadosSetorAtuacaoVM SetorAtuacaoVM { get; set; }
         public string CNPJ { get; set; }
         public string Site { get; set; }
         public string PessoaContato { get; set; }
