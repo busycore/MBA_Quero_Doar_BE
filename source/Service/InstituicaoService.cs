@@ -2,6 +2,7 @@
 using source.Models;
 using source.Service.Repository;
 using source.ViewModel.Instituicao;
+using source.ViewModel.SetorAtuacao;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,14 @@ namespace source.Service
 
             dadosInstituicaoVM.id = Instituicao._id.ToString();
             dadosInstituicaoVM.Nome = Instituicao.Nome;
-            dadosInstituicaoVM.SetorAtuacaoVM.Id = Instituicao.SetorAtuacao._id.ToString();
+            if (Instituicao.SetorAtuacao != null)
+            {
+                dadosInstituicaoVM.SetorAtuacaoVM = new DadosSetorAtuacaoVM()
+                {
+                    Id = Instituicao.SetorAtuacao._id.ToString(),
+                    Descricao = Instituicao.SetorAtuacao.Descricao
+                };
+            }
             dadosInstituicaoVM.CNPJ = Instituicao.CNPJ;
             dadosInstituicaoVM.Site = Instituicao.Site;
             dadosInstituicaoVM.PessoaContato = Instituicao.PessoaContato;
@@ -59,9 +67,14 @@ namespace source.Service
         public async Task Atualizar(AtualizaInstituicaoVM atualizaInstituicaoVM)
         {
             Instituicao instituicao = new Instituicao();
-
+            
+            instituicao._id = new ObjectId(atualizaInstituicaoVM.id);
             instituicao.Nome = atualizaInstituicaoVM.Nome;
-            instituicao.SetorAtuacao._id = new ObjectId(atualizaInstituicaoVM.SetorAtuacaoVM.Id);
+            instituicao.SetorAtuacao = new SetorAtuacao() 
+            { 
+                _id = new ObjectId(atualizaInstituicaoVM.IdSetorAtuacao), 
+                Descricao = atualizaInstituicaoVM.SetorAtuacao 
+            };
             instituicao.CNPJ = atualizaInstituicaoVM.CNPJ;
             instituicao.Site = atualizaInstituicaoVM.Site;
             instituicao.PessoaContato = atualizaInstituicaoVM.PessoaContato;
