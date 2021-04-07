@@ -1,8 +1,8 @@
 ﻿namespace source.ViewModel.SetorAtuacao
 {
-    public class SetorAtuacaoVM
+    public class CadastroSetorAtuacaoVM
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
+        public string Descricao { get; set; }
     }
 }

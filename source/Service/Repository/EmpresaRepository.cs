@@ -17,6 +17,11 @@ namespace source.Service.Repository
             _noSql = noSql;
         }
 
+        public async Task<IEnumerable<Empresa>> GetAllDocument()
+        {
+            return await _noSql.GetAllDocument<Empresa>();
+        }
+
         public async Task<IEnumerable<Empresa>> GetByAsync(Expression<Func<Empresa, bool>> filter)
         {
             return await _noSql.GetDocumentsByFilter<Empresa>(filter);

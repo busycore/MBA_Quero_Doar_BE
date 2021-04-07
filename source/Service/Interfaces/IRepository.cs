@@ -11,5 +11,6 @@ namespace source.Service.Interfaces
         Task InsertOrUpdateAsync(T entity);
         Task<IEnumerable<T>> GetByAsync(Expression<Func<T, bool>> filter);
         Task<T> GetDocumentByID(string _id);
+        Task<IEnumerable<T>> GetAllDocument();
     }
 }

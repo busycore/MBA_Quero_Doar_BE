@@ -27,7 +27,7 @@ namespace source.Service
             if (doador == null)
                 return null;
 
-            dadosDoadorVM.id = doador._id.ToString();
+            dadosDoadorVM.Id = doador._id.ToString();
             dadosDoadorVM.Nome = doador.Nome;
             dadosDoadorVM.CPF = doador.CPF;
             dadosDoadorVM.Telefone = doador.Telefone;
@@ -58,7 +58,7 @@ namespace source.Service
         {
             Doador doador = new Doador();
 
-            doador._id = new ObjectId(atualizaDoadorVM.id);
+            doador._id = new ObjectId(atualizaDoadorVM.Id);
             doador.Nome = atualizaDoadorVM.Nome;
             doador.CPF = atualizaDoadorVM.CPF;
             doador.Telefone = atualizaDoadorVM.Telefone;

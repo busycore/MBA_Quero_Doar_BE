@@ -36,6 +36,14 @@ namespace source
             services.AddScoped<DoadorRepository>();
             services.AddScoped<IRepository<Doador>, DoadorRepository>();
 
+            services.AddScoped<EmpresaService>();
+            services.AddScoped<EmpresaRepository>();
+            services.AddScoped<IRepository<Empresa>, EmpresaRepository>();
+
+            services.AddScoped<SetorAtuacaoService>();
+            services.AddScoped<SetorAtuacaoRepository>();
+            services.AddScoped<IRepository<SetorAtuacao>, SetorAtuacaoRepository>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

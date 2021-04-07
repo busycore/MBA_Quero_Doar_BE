@@ -1,11 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using source.Service;
 using source.ViewModel.Empresa;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace source.Controllers
@@ -21,18 +16,48 @@ namespace source.Controllers
             _empresaService = empresaService;
         }
 
-        [HttpGet("{id:int}")]
+        /// <summary>
+        /// Método para consultar uma Empresa através do Id
+        /// </summary>
+        /// <param name="id">Código da Empresa</param>
+        /// <returns>Entidade ViewModel Empresa</returns>
+        [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public ActionResult<CadastroEmpresaVM> Get(int id)
+        public async Task<ActionResult<DadosEmpresaVM>> Consultar(string id)
         {
-            return Ok();
+            var dadosEmpresaVM = await _empresaService.Consultar(id);
+
+            if (dadosEmpresaVM == null)
+                return NotFound("Empresa não localizada");
+
+            return Ok(dadosEmpresaVM);
         }
 
+
+        /// <summary>
+        /// Método para gravar uma nova Empresa
+        /// </summary>
+        /// <param name="cadastroEmpresaVM">Entidade ViewModel cadastroEmpresaVM</param>
+        /// <returns>Código da Empresa</returns>
         [HttpPost]
         [ProducesResponseType(200)]
-        public ActionResult<CadastroEmpresaVM> Post(CadastroEmpresaVM cadastroEmpresaVM)
+        public async Task<ActionResult<string>> Salvar(CadastroEmpresaVM cadastroEmpresaVM)
         {
+            string id = await _empresaService.Salvar(cadastroEmpresaVM);
+            return Ok(id);
+        }
+
+        /// <summary>
+        /// Método para atualizar as informações da Empresa
+        /// </summary>
+        /// <param name="atualizaDoadorVM">Entidade ViewModel atualizaEmpresaVM</param>
+        /// <returns>Resultado da requisição</returns>
+        [HttpPut]
+        [ProducesResponseType(200)]
+        public async Task<ActionResult> Atualizar(AtualizaEmpresaVM atualizaEmpresaVM)
+        {
+            await _empresaService.Atualizar(atualizaEmpresaVM);
             return Ok();
         }
     }

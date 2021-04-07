@@ -41,10 +41,10 @@ namespace source.Controllers
         /// <returns>Código do Doador</returns>
         [HttpPost]
         [ProducesResponseType(200)]
-        public async Task<ActionResult<int>> Salvar(CadastroDoadorVM cadastroDoadorVM)
+        public async Task<ActionResult<string>> Salvar(CadastroDoadorVM cadastroDoadorVM)
         {
             string id = await _doadorService.Salvar(cadastroDoadorVM);
-            return Ok(new { id });
+            return Ok(id);
         }
 
         /// <summary>
