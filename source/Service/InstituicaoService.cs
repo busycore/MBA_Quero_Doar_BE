@@ -43,7 +43,7 @@ namespace source.Service
             Instituicao instituicao = new Instituicao();
 
             instituicao.Nome = cadastroInstituicaoVM.Nome;
-            instituicao.SetorAtuacao._id = new ObjectId(cadastroInstituicaoVM.SetorAtuacaoVM.Id);
+            instituicao.SetorAtuacao = new SetorAtuacao() { Descricao = cadastroInstituicaoVM.SetorAtuacao };
             instituicao.CNPJ = cadastroInstituicaoVM.CNPJ;
             instituicao.Site = cadastroInstituicaoVM.Site;
             instituicao.PessoaContato = cadastroInstituicaoVM.PessoaContato;
