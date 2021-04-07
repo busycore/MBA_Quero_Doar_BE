@@ -20,20 +20,49 @@ namespace source.Controllers
             _instituicaoService = instituicaoService;
         }
 
-        [HttpGet("{id:int}")]
+
+        /// <summary>
+        /// Método para consultar um Instituicao através do Id
+        /// </summary>
+        /// <param name="id">Código do Instituicao</param>
+        /// <returns>Entidade ViewModel Instituicao</returns>
+        [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<CadastroInstituicaoVM>> Get(int id)
+        public async Task<ActionResult<DadosInstituicaoVM>> Consultar(string id)
         {
-            return Ok();
+            var dadosInstituicaoVM = await _instituicaoService.Consultar(id);
+
+            if (dadosInstituicaoVM == null)
+                return NotFound("Instituicao não localizada");
+
+            return Ok(dadosInstituicaoVM);
         }
 
+        /// <summary>
+        /// Método para gravar um novo Instituicao
+        /// </summary>
+        /// <param name="cadastroInstituicaoVM">Entidade ViewModel cadastroInstituicaoVM</param>
+        /// <returns>Código do Instituicao</returns>
         [HttpPost]
         [ProducesResponseType(200)]
         public async Task<ActionResult<int>> Salvar(CadastroInstituicaoVM cadastroInstituicaoVM)
         {
-            int _id_cliente = 0;//await _clienteService.SalvarCliente(value);
-            return Ok(new { id_cliente = _id_cliente });
+            string id = await _instituicaoService.Salvar(cadastroInstituicaoVM);
+            return Ok(new { id });
+        }
+
+        /// <summary>
+        /// Método para atualizar as informações do Instituicao
+        /// </summary>
+        /// <param name="atualizaInstituicaoVM">Entidade ViewModel atualizaInstituicaoVM</param>
+        /// <returns>Resultado da requisição</returns>
+        [HttpPut]
+        [ProducesResponseType(200)]
+        public async Task<ActionResult> Atualizar(AtualizaInstituicaoVM atualizaInstituicaoVM)
+        {
+            await _instituicaoService.Atualizar(atualizaInstituicaoVM);
+            return Ok();
         }
     }
 }
