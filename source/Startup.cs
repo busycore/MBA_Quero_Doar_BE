@@ -32,9 +32,14 @@ namespace source
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<INoSql, NoSql>();
+            
             services.AddScoped<DoadorService>();
             services.AddScoped<DoadorRepository>();
             services.AddScoped<IRepository<Doador>, DoadorRepository>();
+
+            services.AddScoped<InstituicaoService>();
+            services.AddScoped<InstituicaoRepository>();
+            services.AddScoped<IRepository<Instituicao>, InstituicaoRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
