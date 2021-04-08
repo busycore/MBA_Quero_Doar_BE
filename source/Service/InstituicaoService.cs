@@ -17,6 +17,11 @@ namespace source.Service
             _instituicaoRepository = instituicaoRepository;
         }
 
+        public async Task<Instituicao> ConsultarInstituicao(string id)
+        {
+            return await _instituicaoRepository.GetDocumentByID(id);
+        }
+
         public async Task<DadosInstituicaoVM> Consultar(string id)
         {
             DadosInstituicaoVM dadosInstituicaoVM = new DadosInstituicaoVM();
