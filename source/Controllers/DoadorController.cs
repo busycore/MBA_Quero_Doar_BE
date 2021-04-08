@@ -13,7 +13,7 @@ namespace source.Controllers
 
         public DoadorController(DoadorService doadorService)
         {
-            this._doadorService = doadorService;
+            _doadorService = doadorService;
         }
 
         /// <summary>

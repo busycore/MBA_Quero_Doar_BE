@@ -46,10 +46,10 @@ namespace source.Controllers
         /// <returns>Código do Instituicao</returns>
         [HttpPost]
         [ProducesResponseType(200)]
-        public async Task<ActionResult<int>> Salvar(CadastroInstituicaoVM cadastroInstituicaoVM)
+        public async Task<ActionResult<string>> Salvar(CadastroInstituicaoVM cadastroInstituicaoVM)
         {
             string id = await _instituicaoService.Salvar(cadastroInstituicaoVM);
-            return Ok(new { id });
+            return Ok(id);
         }
 
         /// <summary>
