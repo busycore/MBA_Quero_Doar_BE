@@ -24,5 +24,7 @@ namespace source.Models
         public DateTime DataAquisicao { get; set; }
         public DateTime? DataUtilizacao { get; set; }
         public DateTime DataValidade { get; set; }
+        public bool Ativo { get; set; }
+
     }
 }

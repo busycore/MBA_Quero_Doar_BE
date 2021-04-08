@@ -20,12 +20,11 @@ namespace source.Controllers
             _instituicaoService = instituicaoService;
         }
 
-
         /// <summary>
-        /// Método para consultar um Instituicao através do Id
+        /// Método para consultar uma Instituicao através do Id
         /// </summary>
         /// <param name="id">Código do Instituicao</param>
-        /// <returns>Entidade ViewModel Instituicao</returns>
+        /// <param name="DadosInstituicaoVM">Entidade ViewModel DadosInstituicaoVM</param>
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
@@ -40,10 +39,10 @@ namespace source.Controllers
         }
 
         /// <summary>
-        /// Método para gravar um novo Instituicao
+        /// Método para gravar uma nova Instituicao
         /// </summary>
         /// <param name="cadastroInstituicaoVM">Entidade ViewModel cadastroInstituicaoVM</param>
-        /// <returns>Código do Instituicao</returns>
+        /// <returns>Código da Instituicao</returns>
         [HttpPost]
         [ProducesResponseType(200)]
         public async Task<ActionResult<string>> Salvar(CadastroInstituicaoVM cadastroInstituicaoVM)
@@ -53,7 +52,7 @@ namespace source.Controllers
         }
 
         /// <summary>
-        /// Método para atualizar as informações do Instituicao
+        /// Método para atualizar as informações da Instituicao
         /// </summary>
         /// <param name="atualizaInstituicaoVM">Entidade ViewModel atualizaInstituicaoVM</param>
         /// <returns>Resultado da requisição</returns>
