@@ -20,42 +20,48 @@ namespace source.Controllers
         }
 
         /// <summary>
-        /// Rrea df
+        /// Método para consultar uma Cupom através do Id
         /// </summary>
-        /// <returns></returns>
-        [HttpGet]
+        /// <param name="id">Código do Cupom</param>
+        /// <returns>Entidade ViewModel Cupom</returns>
+        [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public ActionResult<IEnumerable<DadosMeusCuponsVM>> Get()
+        public async Task<ActionResult<DadosMeusCuponsVM>> Consultar(string id)
         {
-            return Ok();
-            //if (1 == 1)
-            //    return Ok();
-            //return NotFound();
+            var dadosCupomVM = await _meusCuponsService.Consultar(id);
+
+            if (dadosCupomVM == null)
+                return NotFound("Meu cupon não localizado");
+
+            return Ok(dadosCupomVM);
         }
 
-
-        [HttpGet("{alho}")]
+        /// <summary>
+        /// Método para gravar um novo Cupom
+        /// </summary>
+        /// <param name="CadastroMeusCuponsVM">Entidade ViewModel CadastroMeusCuponsVM</param>
+        /// <returns>Código do Meu Cupom</returns>
+        [HttpPost]
         [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
-        public ActionResult<IEnumerable<DadosMeusCuponsVM>> Get2(string alho)
+        public async Task<ActionResult<string>> Salvar(CadastroMeusCuponsVM cadastroMeusCuponsVM)
         {
-            return Ok();
-            //if (1 == 1)
-            //    return Ok();
-            //return NotFound();
+            string id = await _meusCuponsService.Salvar(cadastroMeusCuponsVM);
+            return Ok(id);
         }
 
-        
-        [HttpGet("{id:int}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
-        public ActionResult<IEnumerable<DadosMeusCuponsVM>> Get3(int id)
-        {
-            return Ok();
-            //if (1 == 1)
-            //    return Ok();
-            //return NotFound();
-        }
+        ///// <summary>
+        ///// Método para atualizar as informações do Cupom
+        ///// </summary>
+        ///// <param name="atualizaCupomVM">Entidade ViewModel atualizaCupomVM</param>
+        ///// <returns>Resultado da requisição</returns>
+        //[HttpPut]
+        //[ProducesResponseType(200)]
+        //public async Task<ActionResult> Atualizar(AtualizaCupomVM atualizaCupomVM)
+        //{
+        //    await _cupomService.Atualizar(atualizaCupomVM);
+        //    return Ok();
+        //}
+        //}
     }
 }

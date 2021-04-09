@@ -14,10 +14,16 @@ namespace source.Service
     public class MeusCuponsService
     {
         private readonly MeusCuponsRepository _meusCuponsRepository;
+        private readonly CupomRepository _cupomRepository;
+        private readonly EmpresaRepository _empresaRepository;
+        private readonly DoadorRepository _doadorRepository;
 
-        public MeusCuponsService(MeusCuponsRepository meusCuponsRepository)
+        public MeusCuponsService(MeusCuponsRepository meusCuponsRepository , CupomRepository cupomRepository , EmpresaRepository empresaRepository , DoadorRepository doadorRepository)
         {
             _meusCuponsRepository = meusCuponsRepository;
+            _cupomRepository = cupomRepository;
+            _empresaRepository = empresaRepository;
+            _doadorRepository = doadorRepository;
         }
 
         public async Task<MeusCupons> ConsultarMeusCupons(string id)
@@ -68,30 +74,23 @@ namespace source.Service
             return dadosMeusCupomVM;
         }
 
-        //public async Task<string> Salvar(DadosMeusCuponsVM cadastroCupomVM)
-        //{
-        //    MeusCupons meusCupom = new MeusCupons();
+        public async Task<string> Salvar(CadastroMeusCuponsVM cadastroCupomVM)
+        {
+            MeusCupons meusCupons = new MeusCupons();
 
-        //    meusCupom.DataValidade = cadastroCupomVM.DataValidade;
-        //    meusCupom.DataResgate = cadastroCupomVM.DataResgate;
-        //    meusCupom.Ativo = true;
+            var cupom = await _cupomRepository.GetDocumentByID(cadastroCupomVM.IdCupom);
 
-            
-            
+            meusCupons.Cupom = await _cupomRepository.GetDocumentByID(cadastroCupomVM.IdCupom);
+            meusCupons.EmpresaParceria = await _empresaRepository.GetDocumentByID(meusCupons.Cupom.EmpresaParceria._id.ToString());
+            meusCupons.Doador = await _doadorRepository.GetDocumentByID(cadastroCupomVM.IdDoador);
 
-        //    meusCupom.EmpresaParceria = new Empresa()
-        //    {
-        //        _id = new ObjectId(cadastroCupomVM.IdEmpresaParceira),
-        //        Nome = cadastroCupomVM.NomeEmpresaParceira
+            meusCupons.DataValidade = meusCupons.Cupom.DataValidade;
+            meusCupons.DataResgate = DateTime.Now;
+            meusCupons.Ativo = true;
 
-        //    };
+            await _meusCuponsRepository.InsertOrUpdateAsync(meusCupons);
 
-        //    if (!string.IsNullOrEmpty(cadastroCupomVM.DataValidade))
-        //        cupom.DataValidade = Convert.ToDateTime(cadastroCupomVM.DataValidade);
-
-        //    await _meusCuponsRepository.InsertOrUpdateAsync(cupom);
-
-        //    return cupom._id.ToString();
-        //}
+            return meusCupons._id.ToString();
+        }
     }
 }
