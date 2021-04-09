@@ -3,6 +3,7 @@ using source.Models;
 using source.Service.Repository;
 using source.ViewModel.Cupom;
 using source.ViewModel.Empresa;
+using System;
 using System.Threading.Tasks;
 
 namespace source.Service
@@ -29,18 +30,18 @@ namespace source.Service
                 return null;
 
             dadosCupomVM.IdCupom = cupom._id.ToString();
-            dadosCupomVM.IdEmpresaParceira = cupom.Parceria._id.ToString();
+            dadosCupomVM.IdEmpresaParceira = cupom.EmpresaParceria._id.ToString();
             dadosCupomVM.Nome = cupom.Nome;
             dadosCupomVM.Descricao = cupom.Descricao;
             dadosCupomVM.Valor = cupom.Valor;
             dadosCupomVM.DataValidade = cupom.DataValidade;
 
-            if (cupom.Parceria != null)
+            if (cupom.EmpresaParceria != null)
             {
                 dadosCupomVM.DadosEmpresaVM = new DadosEmpresaVM()
                 {
-                    Id = cupom.Parceria._id.ToString(),
-                    Nome = cupom.Parceria.Nome
+                    Id = cupom.EmpresaParceria._id.ToString(),
+                    Nome = cupom.EmpresaParceria.Nome
                 };
             }
          
@@ -52,16 +53,20 @@ namespace source.Service
             Cupom cupom = new Cupom();
 
             cupom.Nome = cadastroCupomVM.Nome;
-            cupom.Parceria = new Empresa() 
+            cupom.Nome = cadastroCupomVM.Nome;
+            cupom.Descricao = cadastroCupomVM.Descricao;
+            cupom.Valor = cadastroCupomVM.Valor;
+            cupom.Ativo = true;
+
+            cupom.EmpresaParceria = new Empresa() 
             {
                 _id = new ObjectId(cadastroCupomVM.IdEmpresaParceira),
                 Nome = cadastroCupomVM.NomeEmpresaParceira 
 
             };
-            cupom.Nome = cadastroCupomVM.Nome;
-            cupom.Descricao = cadastroCupomVM.Descricao;
-            cupom.Valor = cadastroCupomVM.Valor;
-            cupom.DataValidade = cadastroCupomVM.DataValidade;
+            
+            if (!string.IsNullOrEmpty(cadastroCupomVM.DataValidade))
+                cupom.DataValidade = Convert.ToDateTime(cadastroCupomVM.DataValidade);
 
             await _cupomRepository.InsertOrUpdateAsync(cupom);
 
@@ -74,7 +79,7 @@ namespace source.Service
 
             cupom._id = new ObjectId(atualizaCupomVM.IdCupom);
             cupom.Nome = atualizaCupomVM.Nome;
-            cupom.Parceria = new Empresa()
+            cupom.EmpresaParceria = new Empresa()
             {
                 _id = new ObjectId(atualizaCupomVM.IdEmpresaParceira),
                 Nome = atualizaCupomVM.NomeEmpresaParceira
