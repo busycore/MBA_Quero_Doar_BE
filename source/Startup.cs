@@ -58,6 +58,10 @@ namespace source
             services.AddScoped<DoacaoRepository>();
             services.AddScoped<IRepository<Doacao>, DoacaoRepository>();
 
+            services.AddScoped<CupomService>();
+            services.AddScoped<CupomRepository>();
+            services.AddScoped<IRepository<Cupom>, CupomRepository>();
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
