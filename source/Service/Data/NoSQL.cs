@@ -1,10 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using source.Service.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 

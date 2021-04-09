@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using source.Service;
-using System;
+using source.ViewModel.MinhaConta;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace source.Controllers
@@ -18,5 +16,24 @@ namespace source.Controllers
         {
             _instituicoesAjudadasService = instituicoesAjudadasService;
         }
+
+        /// <summary>
+        /// Método para listar as Instituições Ajudadas através do Id do doador
+        /// </summary>
+        /// <param name="id">Código da Doador</param>
+        /// <returns>Entidade ViewModel DadosInstituicoesAjudadasVM</returns>
+        [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<IEnumerable<DadosInstituicoesAjudadasVM>>> Listar(string id)
+        {
+            var listarMinhasDoacoes = await _instituicoesAjudadasService.ListarInstituicoesAjudadas(id);
+
+            if (listarMinhasDoacoes == null)
+                return NotFound("Doador não foi localizado");
+
+            return Ok(listarMinhasDoacoes);
+        }
+
     }
 }
