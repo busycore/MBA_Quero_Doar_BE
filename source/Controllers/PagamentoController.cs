@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using source.Service;
 using source.ViewModel.Pagamento;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace source.Controllers
@@ -31,8 +27,6 @@ namespace source.Controllers
         [ProducesResponseType(200)]
         public async Task<ActionResult<string>> Salvar(CadastroPagamentoVM cadastroPagamentoVM)
         {
-            //string id = await _pagamentoService.Salvar(cadastroPagamentoVM);
-
             var cadastroDoacaoVM = await _pagamentoService.GerarDoacao(cadastroPagamentoVM);
             string id = await _doacaoService.Salvar(cadastroDoacaoVM);
             return Ok(id);

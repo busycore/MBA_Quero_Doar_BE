@@ -2,9 +2,7 @@
 using source.Service.Interfaces;
 using source.Service.Repository;
 using source.ViewModel.SetorAtuacao;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace source.Service

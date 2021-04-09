@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using source.Service;
 using source.ViewModel.SetorAtuacao;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

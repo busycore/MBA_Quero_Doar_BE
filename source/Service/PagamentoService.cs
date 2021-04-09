@@ -3,9 +3,6 @@ using source.Service.Interfaces;
 using source.Service.Repository;
 using source.ViewModel.Doacao;
 using source.ViewModel.Pagamento;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace source.Service
@@ -13,13 +10,10 @@ namespace source.Service
     public class PagamentoService : IService
     {
         private readonly PagamentoRepository _pagamentoRepository;
-        //private readonly DoacaoService _doacaoService;
 
-        //public PagamentoService(PagamentoRepository pagamentoRepository, DoacaoService doacaoService)
         public PagamentoService(PagamentoRepository pagamentoRepository)
         {
             _pagamentoRepository = pagamentoRepository;
-            //_doacaoService = doacaoService;
         }
 
         public async Task<Pagamento> ConsultarPagamento(string id)
@@ -29,7 +23,7 @@ namespace source.Service
 
         public async Task<string> Salvar(CadastroPagamentoVM cadastroPagamentoVM)
         {
-            var pagamento = Converter(cadastroPagamentoVM);
+            var pagamento = ConvertToVM(cadastroPagamentoVM);
             await _pagamentoRepository.InsertOrUpdateAsync(pagamento);
             return pagamento._id.ToString();
         }
@@ -37,20 +31,10 @@ namespace source.Service
         public async Task<CadastroDoacaoVM> GerarDoacao(CadastroPagamentoVM cadastroPagamentoVM)
         {
             string idPagamento = await Salvar(cadastroPagamentoVM);
-
-            CadastroDoacaoVM cadastroDoacaoVM = new CadastroDoacaoVM();
-            cadastroDoacaoVM.IdDoador = cadastroPagamentoVM.IdDoador;
-            cadastroDoacaoVM.IdInstituicao = cadastroPagamentoVM.IdInstituicao;
-            cadastroDoacaoVM.Valor = cadastroPagamentoVM.Valor;
-            cadastroDoacaoVM.IdPagamento = idPagamento;
-
-            //string retorno = await _doacaoService.Salvar(cadastroDoacaoVM);
-            //return retorno;
-
-            return cadastroDoacaoVM;
+            return ConvertToModel(cadastroPagamentoVM, idPagamento); ;
         }
 
-        private Pagamento Converter(CadastroPagamentoVM cadastroPagamentoVM)
+        private Pagamento ConvertToVM(CadastroPagamentoVM cadastroPagamentoVM)
         {
             Pagamento pagamento = new Pagamento();
             pagamento.Valor = cadastroPagamentoVM.Valor;
@@ -59,6 +43,16 @@ namespace source.Service
             pagamento.CodigoSegurancaCartao = cadastroPagamentoVM.CodigoSegurancaCartao;
             pagamento.ValidadeCartao = cadastroPagamentoVM.ValidadeCartao;
             return pagamento;
+        }
+
+        private CadastroDoacaoVM ConvertToModel(CadastroPagamentoVM cadastroPagamentoVM, string idPagamento)
+        {
+            CadastroDoacaoVM cadastroDoacaoVM = new CadastroDoacaoVM();
+            cadastroDoacaoVM.IdDoador = cadastroPagamentoVM.IdDoador;
+            cadastroDoacaoVM.IdInstituicao = cadastroPagamentoVM.IdInstituicao;
+            cadastroDoacaoVM.Valor = cadastroPagamentoVM.Valor;
+            cadastroDoacaoVM.IdPagamento = idPagamento;
+            return cadastroDoacaoVM;
         }
     }
 }

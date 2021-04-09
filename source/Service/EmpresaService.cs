@@ -18,12 +18,31 @@ namespace source.Service
 
         public async Task<DadosEmpresaVM> Consultar(string id)
         {
-            DadosEmpresaVM dadosEmpresaVM = new DadosEmpresaVM();
             var empresa = await _empresaRepository.GetDocumentByID(id);
 
             if (empresa == null)
                 return null;
 
+            return ConvertToVM(empresa);
+        }
+
+        public async Task<string> Salvar(CadastroEmpresaVM cadastroEmpresaVM)
+        {
+            var empresa = ConvertToModel(cadastroEmpresaVM);
+            await _empresaRepository.InsertOrUpdateAsync(empresa);
+
+            return empresa._id.ToString();
+        }
+
+        public async Task Atualizar(AtualizaEmpresaVM atualizaEmpresaVM)
+        {
+            var empresa = ConvertToModel(atualizaEmpresaVM);
+            await _empresaRepository.InsertOrUpdateAsync(empresa);
+        }
+
+        private DadosEmpresaVM ConvertToVM(Empresa empresa)
+        {
+            DadosEmpresaVM dadosEmpresaVM = new DadosEmpresaVM();
             dadosEmpresaVM.Id = empresa._id.ToString();
             dadosEmpresaVM.Nome = empresa.Nome;
             dadosEmpresaVM.CNPJ = empresa.CNPJ;
@@ -32,14 +51,12 @@ namespace source.Service
             dadosEmpresaVM.Telefone = empresa.Telefone;
             dadosEmpresaVM.Email = empresa.Email;
             dadosEmpresaVM.Password = empresa.Password;
-
             return dadosEmpresaVM;
         }
 
-        public async Task<string> Salvar(CadastroEmpresaVM cadastroEmpresaVM)
+        private Empresa ConvertToModel(CadastroEmpresaVM cadastroEmpresaVM)
         {
             Empresa empresa = new Empresa();
-
             empresa.Nome = cadastroEmpresaVM.Nome;
             empresa.CNPJ = cadastroEmpresaVM.CNPJ;
             empresa.Site = cadastroEmpresaVM.Site;
@@ -47,16 +64,12 @@ namespace source.Service
             empresa.Telefone = cadastroEmpresaVM.Telefone;
             empresa.Email = cadastroEmpresaVM.Email;
             empresa.Password = cadastroEmpresaVM.Password;
-
-            await _empresaRepository.InsertOrUpdateAsync(empresa);
-
-            return empresa._id.ToString();
+            return empresa;
         }
 
-        public async Task Atualizar(AtualizaEmpresaVM atualizaEmpresaVM)
+        private Empresa ConvertToModel(AtualizaEmpresaVM atualizaEmpresaVM)
         {
             Empresa empresa = new Empresa();
-
             empresa._id = new ObjectId(atualizaEmpresaVM.Id);
             empresa.Nome = atualizaEmpresaVM.Nome;
             empresa.CNPJ = atualizaEmpresaVM.CNPJ;
@@ -65,8 +78,7 @@ namespace source.Service
             empresa.Telefone = atualizaEmpresaVM.Telefone;
             empresa.Email = atualizaEmpresaVM.Email;
             empresa.Password = atualizaEmpresaVM.Password;
-
-            await _empresaRepository.InsertOrUpdateAsync(empresa);
+            return empresa;
         }
     }
 }

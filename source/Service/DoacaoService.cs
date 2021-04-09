@@ -1,10 +1,10 @@
-﻿using source.Models;
+﻿using MongoDB.Bson;
+using source.Models;
 using source.Service.Interfaces;
 using source.Service.Repository;
 using source.ViewModel.Doacao;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace source.Service
@@ -23,6 +23,47 @@ namespace source.Service
             _doadorService = doadorService;
             _instituicaoService = instituicaoService;
             _pagamentoService = pagamentoService;
+        }
+
+        public async Task<IEnumerable<DoacaoMinhasDoacoesVM>> ListarMinhasDoacoes(string idDoador)
+        {
+            ObjectId id = new ObjectId(idDoador);
+            DateTime umAnoAtras = DateTime.Now.AddYears(-1).Date;
+
+            List<DoacaoMinhasDoacoesVM> listaDadosDoacaoVM = new List<DoacaoMinhasDoacoesVM>();
+            var listaDoacao = await _doacaoRepository.GetByAsync(p => p.Doador._id == id && p.DataDoacao >= umAnoAtras);
+
+            foreach (var doacao in listaDoacao)
+            {
+                DoacaoMinhasDoacoesVM dadosMinhasDoacoesVM = new DoacaoMinhasDoacoesVM();
+                dadosMinhasDoacoesVM.Cartao = doacao.Pagamento.NumeroCartao;
+                dadosMinhasDoacoesVM.Valor = doacao.Pagamento.Valor;
+                dadosMinhasDoacoesVM.DataDoacao = doacao.DataDoacao;
+                listaDadosDoacaoVM.Add(dadosMinhasDoacoesVM);
+            }
+
+            return listaDadosDoacaoVM;
+        }
+
+        public async Task<IEnumerable<DoacaoInstituicoesAjudadasVM>> ListarInstituicoesAjudadas(string idDoador)
+        {
+            ObjectId id = new ObjectId(idDoador);
+            DateTime umAnoAtras = DateTime.Now.AddYears(-1).Date;
+
+            List<DoacaoInstituicoesAjudadasVM> listaInstituicoesAjudadasVM = new List<DoacaoInstituicoesAjudadasVM>();
+            var listaDoacao = await _doacaoRepository.GetByAsync(p => p.Doador._id == id && p.DataDoacao >= umAnoAtras);
+
+            foreach (var doacao in listaDoacao)
+            {
+                DoacaoInstituicoesAjudadasVM instituicoesAjudadasVM = new DoacaoInstituicoesAjudadasVM();
+                instituicoesAjudadasVM.Nome = doacao.Instituicao.Nome;
+                instituicoesAjudadasVM.Valor = doacao.ValorInstituicao;
+                instituicoesAjudadasVM.DataDoacao = doacao.DataDoacao;
+                instituicoesAjudadasVM.Site = doacao.Instituicao.Site;
+                listaInstituicoesAjudadasVM.Add(instituicoesAjudadasVM);
+            }
+
+            return listaInstituicoesAjudadasVM;
         }
 
         public async Task<string> Salvar(CadastroDoacaoVM cadastroDoacaoVM)

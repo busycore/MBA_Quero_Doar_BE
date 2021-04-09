@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace source.ViewModel.Doacao
+﻿namespace source.ViewModel.Doacao
 {
     public class CadastroDoacaoVM
     {
