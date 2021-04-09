@@ -31,7 +31,7 @@ namespace source.Service
         public async Task<CadastroDoacaoVM> GerarDoacao(CadastroPagamentoVM cadastroPagamentoVM)
         {
             string idPagamento = await Salvar(cadastroPagamentoVM);
-            return ConvertToModel(cadastroPagamentoVM, idPagamento); ;
+            return ConvertToModel(cadastroPagamentoVM, idPagamento);
         }
 
         private Pagamento ConvertToVM(CadastroPagamentoVM cadastroPagamentoVM)
