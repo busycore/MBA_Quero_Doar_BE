@@ -29,7 +29,7 @@ namespace source.Service
             if (cupom == null)
                 return null;
 
-            dadosCupomVM.IdCupom = cupom._id.ToString();
+            dadosCupomVM.Id = cupom._id.ToString();
             dadosCupomVM.IdEmpresaParceira = cupom.EmpresaParceria._id.ToString();
             dadosCupomVM.Nome = cupom.Nome;
             dadosCupomVM.Descricao = cupom.Descricao;
