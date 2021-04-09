@@ -65,6 +65,10 @@ namespace source
             services.AddScoped<MinhasDoacoesService>();
             services.AddScoped<InstituicoesAjudadasService>();
 
+            services.AddScoped<MeusCuponsService>();
+            services.AddScoped<MeusCuponsRepository>();
+            services.AddScoped<IRepository<MeusCupons>, MeusCuponsRepository>();
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
