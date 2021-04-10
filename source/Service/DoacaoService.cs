@@ -15,14 +15,17 @@ namespace source.Service
         private readonly DoadorService _doadorService;
         private readonly InstituicaoService _instituicaoService;
         private readonly PagamentoService _pagamentoService;
+        private readonly CupomService _cupomService;
 
         public DoacaoService(DoacaoRepository doacaoRepository, DoadorService doadorService,
-                             InstituicaoService instituicaoService, PagamentoService pagamentoService)
+                             InstituicaoService instituicaoService, PagamentoService pagamentoService,
+                             CupomService cupomService)
         {
             _doacaoRepository = doacaoRepository;
             _doadorService = doadorService;
             _instituicaoService = instituicaoService;
             _pagamentoService = pagamentoService;
+            _cupomService = cupomService;
         }
 
         public async Task<IEnumerable<DoacaoMinhasDoacoesVM>> ListarMinhasDoacoes(string idDoador)
@@ -30,15 +33,17 @@ namespace source.Service
             ObjectId id = new ObjectId(idDoador);
             DateTime umAnoAtras = DateTime.Now.AddYears(-1).Date;
 
-            List<DoacaoMinhasDoacoesVM> listaDadosDoacaoVM = new List<DoacaoMinhasDoacoesVM>();
+            List<DoacaoMinhasDoacoesVM> listaDadosDoacaoVM = new();
             var listaDoacao = await _doacaoRepository.GetByAsync(p => p.Doador._id == id && p.DataDoacao >= umAnoAtras);
 
             foreach (var doacao in listaDoacao)
             {
-                DoacaoMinhasDoacoesVM dadosMinhasDoacoesVM = new DoacaoMinhasDoacoesVM();
-                dadosMinhasDoacoesVM.Cartao = doacao.Pagamento.NumeroCartao;
-                dadosMinhasDoacoesVM.Valor = doacao.Pagamento.Valor;
-                dadosMinhasDoacoesVM.DataDoacao = doacao.DataDoacao;
+                DoacaoMinhasDoacoesVM dadosMinhasDoacoesVM = new DoacaoMinhasDoacoesVM
+                {
+                    Cartao = doacao.Pagamento.NumeroCartao,
+                    Valor = doacao.Pagamento.Valor,
+                    DataDoacao = doacao.DataDoacao
+                };
                 listaDadosDoacaoVM.Add(dadosMinhasDoacoesVM);
             }
 
@@ -55,11 +60,13 @@ namespace source.Service
 
             foreach (var doacao in listaDoacao)
             {
-                DoacaoInstituicoesAjudadasVM instituicoesAjudadasVM = new DoacaoInstituicoesAjudadasVM();
-                instituicoesAjudadasVM.Nome = doacao.Instituicao.Nome;
-                instituicoesAjudadasVM.Valor = doacao.ValorInstituicao;
-                instituicoesAjudadasVM.DataDoacao = doacao.DataDoacao;
-                instituicoesAjudadasVM.Site = doacao.Instituicao.Site;
+                DoacaoInstituicoesAjudadasVM instituicoesAjudadasVM = new DoacaoInstituicoesAjudadasVM
+                {
+                    Nome = doacao.Instituicao.Nome,
+                    Valor = doacao.ValorInstituicao,
+                    DataDoacao = doacao.DataDoacao,
+                    Site = doacao.Instituicao.Site
+                };
                 listaInstituicoesAjudadasVM.Add(instituicoesAjudadasVM);
             }
 
@@ -71,14 +78,18 @@ namespace source.Service
             Doador doador = await _doadorService.ConsultarDoador(cadastroDoacaoVM.IdDoador);
             Instituicao instituicao = await _instituicaoService.ConsultarInstituicao(cadastroDoacaoVM.IdInstituicao);
             Pagamento pagamento = await _pagamentoService.ConsultarPagamento(cadastroDoacaoVM.IdPagamento);
+            Cupom cupom = await _cupomService.ConsultarCupom(cadastroDoacaoVM.IdCupom);
 
-            Doacao doacao = new Doacao();
-            doacao.Doador = doador;
-            doacao.Instituicao = instituicao;
-            doacao.Pagamento = pagamento;
-            //doacao.Cupons = null;
-            doacao.DataDoacao = DateTime.Now;
-            doacao.ValorInstituicao = cadastroDoacaoVM.Valor;
+
+            Doacao doacao = new Doacao
+            {
+                Doador = doador,
+                Instituicao = instituicao,
+                Pagamento = pagamento,
+                Cupom = cupom,
+                DataDoacao = DateTime.Now,
+                ValorInstituicao = cadastroDoacaoVM.Valor
+            };
 
             await _doacaoRepository.InsertOrUpdateAsync(doacao);
             return doacao._id.ToString();

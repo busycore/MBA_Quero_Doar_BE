@@ -22,10 +22,12 @@ namespace source.Service
 
             foreach (var minhaDoacoes in listaMinhasDoacoes)
             {
-                DadosMinhasDoacoesVM dadosMinhasDoacoesVM = new DadosMinhasDoacoesVM();
-                dadosMinhasDoacoesVM.Cartao = $"**** {minhaDoacoes.Cartao.Substring(5, 9)} ****";
-                dadosMinhasDoacoesVM.Valor = minhaDoacoes.Valor;
-                dadosMinhasDoacoesVM.DataDoacao = minhaDoacoes.DataDoacao;
+                DadosMinhasDoacoesVM dadosMinhasDoacoesVM = new DadosMinhasDoacoesVM
+                {
+                    Cartao = $"**** {minhaDoacoes.Cartao.Substring(5, 9)} ****",
+                    Valor = minhaDoacoes.Valor,
+                    DataDoacao = minhaDoacoes.DataDoacao
+                };
                 listaDadosMeusCuponsVM.Add(dadosMinhasDoacoesVM);
             }
 

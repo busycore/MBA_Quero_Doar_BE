@@ -76,11 +76,10 @@ namespace source.Service
 
         public async Task<string> Salvar(CadastroMeusCuponsVM cadastroCupomVM)
         {
-            MeusCupons meusCupons = new MeusCupons();
-
-            var cupom = await _cupomRepository.GetDocumentByID(cadastroCupomVM.IdCupom);
-
-            meusCupons.Cupom = await _cupomRepository.GetDocumentByID(cadastroCupomVM.IdCupom);
+            MeusCupons meusCupons = new MeusCupons
+            {
+                Cupom = await _cupomRepository.GetDocumentByID(cadastroCupomVM.IdCupom)
+            };
             meusCupons.EmpresaParceria = await _empresaRepository.GetDocumentByID(meusCupons.Cupom.EmpresaParceria._id.ToString());
             meusCupons.Doador = await _doadorRepository.GetDocumentByID(cadastroCupomVM.IdDoador);
 

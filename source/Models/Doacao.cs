@@ -17,7 +17,7 @@ namespace source.Models
         public ObjectId _id { get; set; }
         public Doador Doador { get; set; }
         public Instituicao Instituicao { get; set; }
-        public IEnumerable<Cupom> Cupons { get; set; }
+        public Cupom Cupom { get; set; }
         public DateTime DataDoacao { get; set; }
         public Pagamento Pagamento { get; set; }
         public decimal ValorInstituicao { get; set; }

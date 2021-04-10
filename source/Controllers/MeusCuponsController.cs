@@ -49,19 +49,5 @@ namespace source.Controllers
             string id = await _meusCuponsService.Salvar(cadastroMeusCuponsVM);
             return Ok(id);
         }
-
-        ///// <summary>
-        ///// Método para atualizar as informações do Cupom
-        ///// </summary>
-        ///// <param name="atualizaCupomVM">Entidade ViewModel atualizaCupomVM</param>
-        ///// <returns>Resultado da requisição</returns>
-        //[HttpPut]
-        //[ProducesResponseType(200)]
-        //public async Task<ActionResult> Atualizar(AtualizaCupomVM atualizaCupomVM)
-        //{
-        //    await _cupomService.Atualizar(atualizaCupomVM);
-        //    return Ok();
-        //}
-        //}
     }
 }

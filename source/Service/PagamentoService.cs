@@ -34,24 +34,28 @@ namespace source.Service
             return ConvertToModel(cadastroPagamentoVM, idPagamento);
         }
 
-        private Pagamento ConvertToVM(CadastroPagamentoVM cadastroPagamentoVM)
+        private static Pagamento ConvertToVM(CadastroPagamentoVM cadastroPagamentoVM)
         {
-            Pagamento pagamento = new Pagamento();
-            pagamento.Valor = cadastroPagamentoVM.Valor;
-            pagamento.NomeCartao = cadastroPagamentoVM.NomeCartao;
-            pagamento.NumeroCartao = cadastroPagamentoVM.NumeroCartao;
-            pagamento.CodigoSegurancaCartao = cadastroPagamentoVM.CodigoSegurancaCartao;
-            pagamento.ValidadeCartao = cadastroPagamentoVM.ValidadeCartao;
+            Pagamento pagamento = new Pagamento
+            {
+                Valor = cadastroPagamentoVM.Valor,
+                NomeCartao = cadastroPagamentoVM.NomeCartao,
+                NumeroCartao = cadastroPagamentoVM.NumeroCartao,
+                CodigoSegurancaCartao = cadastroPagamentoVM.CodigoSegurancaCartao,
+                ValidadeCartao = cadastroPagamentoVM.ValidadeCartao
+            };
             return pagamento;
         }
 
-        private CadastroDoacaoVM ConvertToModel(CadastroPagamentoVM cadastroPagamentoVM, string idPagamento)
+        private static CadastroDoacaoVM ConvertToModel(CadastroPagamentoVM cadastroPagamentoVM, string idPagamento)
         {
-            CadastroDoacaoVM cadastroDoacaoVM = new CadastroDoacaoVM();
-            cadastroDoacaoVM.IdDoador = cadastroPagamentoVM.IdDoador;
-            cadastroDoacaoVM.IdInstituicao = cadastroPagamentoVM.IdInstituicao;
-            cadastroDoacaoVM.Valor = cadastroPagamentoVM.Valor;
-            cadastroDoacaoVM.IdPagamento = idPagamento;
+            CadastroDoacaoVM cadastroDoacaoVM = new CadastroDoacaoVM
+            {
+                IdDoador = cadastroPagamentoVM.IdDoador,
+                IdInstituicao = cadastroPagamentoVM.IdInstituicao,
+                Valor = cadastroPagamentoVM.Valor,
+                IdPagamento = idPagamento
+            };
             return cadastroDoacaoVM;
         }
     }

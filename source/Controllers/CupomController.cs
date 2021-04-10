@@ -30,7 +30,7 @@ namespace source.Controllers
             var dadosCupomVM = await _cupomService.Consultar(id);
 
             if (dadosCupomVM == null)
-                return NotFound("Empresa não localizada");
+                return NotFound("Cupom não localizada");
 
             return Ok(dadosCupomVM);
         }

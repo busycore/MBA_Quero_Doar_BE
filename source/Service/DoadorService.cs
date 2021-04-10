@@ -23,13 +23,12 @@ namespace source.Service
 
         public async Task<DadosDoadorVM> Consultar(string id)
         {
-            DadosDoadorVM dadosDoadorVM = new DadosDoadorVM();
             var doador = await _doadorRepository.GetDocumentByID(id);
 
             if (doador == null)
                 return null;
 
-            dadosDoadorVM = ConvertToVM(doador);
+            DadosDoadorVM dadosDoadorVM = ConvertToVM(doador);
 
             return dadosDoadorVM;
         }
@@ -49,41 +48,47 @@ namespace source.Service
             await _doadorRepository.InsertOrUpdateAsync(doador);
         }
 
-        private DadosDoadorVM ConvertToVM(Doador doador)
+        private static DadosDoadorVM ConvertToVM(Doador doador)
         {
-            DadosDoadorVM dadosDoadorVM = new DadosDoadorVM();
-            dadosDoadorVM.Id = doador._id.ToString();
-            dadosDoadorVM.Nome = doador.Nome;
-            dadosDoadorVM.CPF = doador.CPF;
-            dadosDoadorVM.Telefone = doador.Telefone;
-            dadosDoadorVM.DataNascimento = doador.DataNascimento;
-            dadosDoadorVM.Email = doador.Email;
-            dadosDoadorVM.Password = doador.Password;
+            DadosDoadorVM dadosDoadorVM = new DadosDoadorVM
+            {
+                Id = doador._id.ToString(),
+                Nome = doador.Nome,
+                CPF = doador.CPF,
+                Telefone = doador.Telefone,
+                DataNascimento = doador.DataNascimento,
+                Email = doador.Email,
+                Password = doador.Password
+            };
             return dadosDoadorVM;
         }
 
-        private Doador ConvertToModel(CadastroDoadorVM cadastroDoadorVM)
+        private static Doador ConvertToModel(CadastroDoadorVM cadastroDoadorVM)
         {
-            Doador doador = new Doador();
-            doador.Nome = cadastroDoadorVM.Nome;
-            doador.CPF = cadastroDoadorVM.CPF;
-            doador.Telefone = cadastroDoadorVM.Telefone;
-            doador.DataNascimento = cadastroDoadorVM.DataNascimento;
-            doador.Email = cadastroDoadorVM.Email;
-            doador.Password = cadastroDoadorVM.Password;
+            Doador doador = new Doador
+            {
+                Nome = cadastroDoadorVM.Nome,
+                CPF = cadastroDoadorVM.CPF,
+                Telefone = cadastroDoadorVM.Telefone,
+                DataNascimento = cadastroDoadorVM.DataNascimento,
+                Email = cadastroDoadorVM.Email,
+                Password = cadastroDoadorVM.Password
+            };
             return doador;
         }
 
-        private Doador ConvertToModel(AtualizaDoadorVM atualizaDoadorVM)
+        private static Doador ConvertToModel(AtualizaDoadorVM atualizaDoadorVM)
         {
-            Doador doador = new Doador();
-            doador._id = new ObjectId(atualizaDoadorVM.Id);
-            doador.Nome = atualizaDoadorVM.Nome;
-            doador.CPF = atualizaDoadorVM.CPF;
-            doador.Telefone = atualizaDoadorVM.Telefone;
-            doador.DataNascimento = atualizaDoadorVM.DataNascimento;
-            doador.Email = atualizaDoadorVM.Email;
-            doador.Password = atualizaDoadorVM.Password;
+            Doador doador = new Doador
+            {
+                _id = new ObjectId(atualizaDoadorVM.Id),
+                Nome = atualizaDoadorVM.Nome,
+                CPF = atualizaDoadorVM.CPF,
+                Telefone = atualizaDoadorVM.Telefone,
+                DataNascimento = atualizaDoadorVM.DataNascimento,
+                Email = atualizaDoadorVM.Email,
+                Password = atualizaDoadorVM.Password
+            };
             return doador;
         }
     }

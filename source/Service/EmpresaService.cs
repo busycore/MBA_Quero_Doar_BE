@@ -40,44 +40,50 @@ namespace source.Service
             await _empresaRepository.InsertOrUpdateAsync(empresa);
         }
 
-        private DadosEmpresaVM ConvertToVM(Empresa empresa)
+        private static DadosEmpresaVM ConvertToVM(Empresa empresa)
         {
-            DadosEmpresaVM dadosEmpresaVM = new DadosEmpresaVM();
-            dadosEmpresaVM.Id = empresa._id.ToString();
-            dadosEmpresaVM.Nome = empresa.Nome;
-            dadosEmpresaVM.CNPJ = empresa.CNPJ;
-            dadosEmpresaVM.Site = empresa.Site;
-            dadosEmpresaVM.PessoaContato = empresa.PessoaContato;
-            dadosEmpresaVM.Telefone = empresa.Telefone;
-            dadosEmpresaVM.Email = empresa.Email;
-            dadosEmpresaVM.Password = empresa.Password;
+            DadosEmpresaVM dadosEmpresaVM = new DadosEmpresaVM
+            {
+                Id = empresa._id.ToString(),
+                Nome = empresa.Nome,
+                CNPJ = empresa.CNPJ,
+                Site = empresa.Site,
+                PessoaContato = empresa.PessoaContato,
+                Telefone = empresa.Telefone,
+                Email = empresa.Email,
+                Password = empresa.Password
+            };
             return dadosEmpresaVM;
         }
 
-        private Empresa ConvertToModel(CadastroEmpresaVM cadastroEmpresaVM)
+        private static Empresa ConvertToModel(CadastroEmpresaVM cadastroEmpresaVM)
         {
-            Empresa empresa = new Empresa();
-            empresa.Nome = cadastroEmpresaVM.Nome;
-            empresa.CNPJ = cadastroEmpresaVM.CNPJ;
-            empresa.Site = cadastroEmpresaVM.Site;
-            empresa.PessoaContato = cadastroEmpresaVM.PessoaContato;
-            empresa.Telefone = cadastroEmpresaVM.Telefone;
-            empresa.Email = cadastroEmpresaVM.Email;
-            empresa.Password = cadastroEmpresaVM.Password;
+            Empresa empresa = new Empresa
+            {
+                Nome = cadastroEmpresaVM.Nome,
+                CNPJ = cadastroEmpresaVM.CNPJ,
+                Site = cadastroEmpresaVM.Site,
+                PessoaContato = cadastroEmpresaVM.PessoaContato,
+                Telefone = cadastroEmpresaVM.Telefone,
+                Email = cadastroEmpresaVM.Email,
+                Password = cadastroEmpresaVM.Password
+            };
             return empresa;
         }
 
-        private Empresa ConvertToModel(AtualizaEmpresaVM atualizaEmpresaVM)
+        private static Empresa ConvertToModel(AtualizaEmpresaVM atualizaEmpresaVM)
         {
-            Empresa empresa = new Empresa();
-            empresa._id = new ObjectId(atualizaEmpresaVM.Id);
-            empresa.Nome = atualizaEmpresaVM.Nome;
-            empresa.CNPJ = atualizaEmpresaVM.CNPJ;
-            empresa.Site = atualizaEmpresaVM.Site;
-            empresa.PessoaContato = atualizaEmpresaVM.PessoaContato;
-            empresa.Telefone = atualizaEmpresaVM.Telefone;
-            empresa.Email = atualizaEmpresaVM.Email;
-            empresa.Password = atualizaEmpresaVM.Password;
+            Empresa empresa = new Empresa
+            {
+                _id = new ObjectId(atualizaEmpresaVM.Id),
+                Nome = atualizaEmpresaVM.Nome,
+                CNPJ = atualizaEmpresaVM.CNPJ,
+                Site = atualizaEmpresaVM.Site,
+                PessoaContato = atualizaEmpresaVM.PessoaContato,
+                Telefone = atualizaEmpresaVM.Telefone,
+                Email = atualizaEmpresaVM.Email,
+                Password = atualizaEmpresaVM.Password
+            };
             return empresa;
         }
     }

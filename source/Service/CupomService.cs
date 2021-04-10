@@ -23,18 +23,20 @@ namespace source.Service
 
         public async Task<DadosCupomVM> Consultar(string id)
         {
-            DadosCupomVM dadosCupomVM = new DadosCupomVM();
             var cupom = await _cupomRepository.GetDocumentByID(id);
 
             if (cupom == null)
                 return null;
 
-            dadosCupomVM.Id = cupom._id.ToString();
-            dadosCupomVM.IdEmpresaParceira = cupom.EmpresaParceria._id.ToString();
-            dadosCupomVM.Nome = cupom.Nome;
-            dadosCupomVM.Descricao = cupom.Descricao;
-            dadosCupomVM.Valor = cupom.Valor;
-            dadosCupomVM.DataValidade = cupom.DataValidade;
+            DadosCupomVM dadosCupomVM = new DadosCupomVM
+            {
+                Id = cupom._id.ToString(),
+                IdEmpresaParceira = cupom.EmpresaParceria._id.ToString(),
+                Nome = cupom.Nome,
+                Descricao = cupom.Descricao,
+                Valor = cupom.Valor,
+                DataValidade = cupom.DataValidade
+            };
 
             if (cupom.EmpresaParceria != null)
             {
@@ -50,21 +52,21 @@ namespace source.Service
 
         public async Task<string> Salvar(CadastroCupomVM cadastroCupomVM)
         {
-            Cupom cupom = new Cupom();
-
-            cupom.Nome = cadastroCupomVM.Nome;
-            cupom.Nome = cadastroCupomVM.Nome;
-            cupom.Descricao = cadastroCupomVM.Descricao;
-            cupom.Valor = cadastroCupomVM.Valor;
-            cupom.Ativo = true;
-
-            cupom.EmpresaParceria = new Empresa() 
+            Cupom cupom = new Cupom
             {
-                _id = new ObjectId(cadastroCupomVM.IdEmpresaParceira),
-                Nome = cadastroCupomVM.NomeEmpresaParceira 
+                Nome = cadastroCupomVM.Nome,
+                Descricao = cadastroCupomVM.Descricao,
+                Valor = cadastroCupomVM.Valor,
+                Ativo = true,
 
+                EmpresaParceria = new Empresa()
+                {
+                    _id = new ObjectId(cadastroCupomVM.IdEmpresaParceira),
+                    Nome = cadastroCupomVM.NomeEmpresaParceira
+
+                }
             };
-            
+
             if (!string.IsNullOrEmpty(cadastroCupomVM.DataValidade))
                 cupom.DataValidade = Convert.ToDateTime(cadastroCupomVM.DataValidade);
 
@@ -75,19 +77,19 @@ namespace source.Service
 
         public async Task Atualizar(AtualizaCupomVM atualizaCupomVM)
         {
-            Cupom cupom = new Cupom();
-
-            cupom._id = new ObjectId(atualizaCupomVM.IdCupom);
-            cupom.Nome = atualizaCupomVM.Nome;
-            cupom.EmpresaParceria = new Empresa()
+            Cupom cupom = new Cupom
             {
-                _id = new ObjectId(atualizaCupomVM.IdEmpresaParceira),
-                Nome = atualizaCupomVM.NomeEmpresaParceira
+                _id = new ObjectId(atualizaCupomVM.IdCupom),
+                Nome = atualizaCupomVM.Nome,
+                EmpresaParceria = new Empresa()
+                {
+                    _id = new ObjectId(atualizaCupomVM.IdEmpresaParceira),
+                    Nome = atualizaCupomVM.NomeEmpresaParceira
+                },
+                Descricao = atualizaCupomVM.Descricao,
+                Valor = atualizaCupomVM.Valor,
+                DataValidade = atualizaCupomVM.DataValidade
             };
-            cupom.Nome = atualizaCupomVM.Nome;
-            cupom.Descricao = atualizaCupomVM.Descricao;
-            cupom.Valor = atualizaCupomVM.Valor;
-            cupom.DataValidade = atualizaCupomVM.DataValidade;
 
             await _cupomRepository.InsertOrUpdateAsync(cupom);
         }

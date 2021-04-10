@@ -31,7 +31,7 @@ namespace source.Service
             if (Instituicao == null)
                 return null;
 
-            dadosInstituicaoVM.id = Instituicao._id.ToString();
+            dadosInstituicaoVM.Id = Instituicao._id.ToString();
             dadosInstituicaoVM.Nome = Instituicao.Nome;
             if (Instituicao.SetorAtuacao != null)
             {
@@ -53,16 +53,17 @@ namespace source.Service
 
         public async Task<string> Salvar(CadastroInstituicaoVM cadastroInstituicaoVM)
         {
-            Instituicao instituicao = new Instituicao();
-
-            instituicao.Nome = cadastroInstituicaoVM.Nome;
-            instituicao.SetorAtuacao = new SetorAtuacao() { Descricao = cadastroInstituicaoVM.SetorAtuacao };
-            instituicao.CNPJ = cadastroInstituicaoVM.CNPJ;
-            instituicao.Site = cadastroInstituicaoVM.Site;
-            instituicao.PessoaContato = cadastroInstituicaoVM.PessoaContato;
-            instituicao.Telefone = cadastroInstituicaoVM.Telefone;
-            instituicao.Email = cadastroInstituicaoVM.Email;
-            instituicao.Password = cadastroInstituicaoVM.Password;
+            Instituicao instituicao = new Instituicao
+            {
+                Nome = cadastroInstituicaoVM.Nome,
+                SetorAtuacao = new SetorAtuacao() { Descricao = cadastroInstituicaoVM.SetorAtuacao },
+                CNPJ = cadastroInstituicaoVM.CNPJ,
+                Site = cadastroInstituicaoVM.Site,
+                PessoaContato = cadastroInstituicaoVM.PessoaContato,
+                Telefone = cadastroInstituicaoVM.Telefone,
+                Email = cadastroInstituicaoVM.Email,
+                Password = cadastroInstituicaoVM.Password
+            };
 
             await _instituicaoRepository.InsertOrUpdateAsync(instituicao);
 
@@ -71,21 +72,22 @@ namespace source.Service
 
         public async Task Atualizar(AtualizaInstituicaoVM atualizaInstituicaoVM)
         {
-            Instituicao instituicao = new Instituicao();
-            
-            instituicao._id = new ObjectId(atualizaInstituicaoVM.id);
-            instituicao.Nome = atualizaInstituicaoVM.Nome;
-            instituicao.SetorAtuacao = new SetorAtuacao() 
-            { 
-                _id = new ObjectId(atualizaInstituicaoVM.IdSetorAtuacao), 
-                Descricao = atualizaInstituicaoVM.SetorAtuacao 
+            Instituicao instituicao = new Instituicao
+            {
+                _id = new ObjectId(atualizaInstituicaoVM.Id),
+                Nome = atualizaInstituicaoVM.Nome,
+                SetorAtuacao = new SetorAtuacao()
+                {
+                    _id = new ObjectId(atualizaInstituicaoVM.IdSetorAtuacao),
+                    Descricao = atualizaInstituicaoVM.SetorAtuacao
+                },
+                CNPJ = atualizaInstituicaoVM.CNPJ,
+                Site = atualizaInstituicaoVM.Site,
+                PessoaContato = atualizaInstituicaoVM.PessoaContato,
+                Telefone = atualizaInstituicaoVM.Telefone,
+                Email = atualizaInstituicaoVM.Email,
+                Password = atualizaInstituicaoVM.Password
             };
-            instituicao.CNPJ = atualizaInstituicaoVM.CNPJ;
-            instituicao.Site = atualizaInstituicaoVM.Site;
-            instituicao.PessoaContato = atualizaInstituicaoVM.PessoaContato;
-            instituicao.Telefone = atualizaInstituicaoVM.Telefone;
-            instituicao.Email = atualizaInstituicaoVM.Email;
-            instituicao.Password = atualizaInstituicaoVM.Password;
 
             await _instituicaoRepository.InsertOrUpdateAsync(instituicao);
         }

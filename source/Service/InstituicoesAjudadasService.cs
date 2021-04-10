@@ -23,11 +23,13 @@ namespace source.Service
 
             foreach (var instituicoesAjudadasVM in listaInstituicoesAjudadas)
             {
-                DadosInstituicoesAjudadasVM dadosInstituicoesAjudadasVM = new DadosInstituicoesAjudadasVM();
-                dadosInstituicoesAjudadasVM.Nome = instituicoesAjudadasVM.Nome;
-                dadosInstituicoesAjudadasVM.Valor = instituicoesAjudadasVM.Valor;
-                dadosInstituicoesAjudadasVM.DataDoacao = instituicoesAjudadasVM.DataDoacao;
-                dadosInstituicoesAjudadasVM.Site = instituicoesAjudadasVM.Site;
+                DadosInstituicoesAjudadasVM dadosInstituicoesAjudadasVM = new DadosInstituicoesAjudadasVM
+                {
+                    Nome = instituicoesAjudadasVM.Nome,
+                    Valor = instituicoesAjudadasVM.Valor,
+                    DataDoacao = instituicoesAjudadasVM.DataDoacao,
+                    Site = instituicoesAjudadasVM.Site
+                };
                 listaInstituicoesAjudadasVM.Add(dadosInstituicoesAjudadasVM);
             }
 

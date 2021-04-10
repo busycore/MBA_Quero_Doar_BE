@@ -23,9 +23,11 @@ namespace source.Service
 
             foreach (var setorAtuacao in listaSetorAtuacao)
             {
-                DadosSetorAtuacaoVM dadosSetorAtuacaoVM = new DadosSetorAtuacaoVM();
-                dadosSetorAtuacaoVM.Id = setorAtuacao._id.ToString();
-                dadosSetorAtuacaoVM.Descricao = setorAtuacao.Descricao;
+                DadosSetorAtuacaoVM dadosSetorAtuacaoVM = new DadosSetorAtuacaoVM
+                {
+                    Id = setorAtuacao._id.ToString(),
+                    Descricao = setorAtuacao.Descricao
+                };
                 listaDadosSetorAtuacaoVM.Add(dadosSetorAtuacaoVM);
             }
 
@@ -48,9 +50,10 @@ namespace source.Service
 
         public async Task<string> Salvar(CadastroSetorAtuacaoVM cadastroSetorAtuacaoVM)
         {
-            SetorAtuacao setorAtuacao = new SetorAtuacao();
-
-            setorAtuacao.Descricao = cadastroSetorAtuacaoVM.Descricao;
+            SetorAtuacao setorAtuacao = new SetorAtuacao
+            {
+                Descricao = cadastroSetorAtuacaoVM.Descricao
+            };
 
             await _setorAtuacaoRepository.InsertOrUpdateAsync(setorAtuacao);
 
