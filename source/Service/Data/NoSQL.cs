@@ -16,9 +16,8 @@ namespace source.Service.Data
 
         public NoSql()
         {
-            
             client = new MongoClient(Environment.GetEnvironmentVariable("CONNECTION_STRING"));
-            _databaseName = "querodoar";
+            _databaseName = "QueroDoar";
         }
 
         private IMongoCollection<T> GetCollection<T>()

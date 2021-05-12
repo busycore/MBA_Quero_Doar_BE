@@ -12,7 +12,8 @@ namespace source.Models
         }
 
         [BsonId]
-        public ObjectId _id { get; set;}
+        public ObjectId _id { get; set; }
+
         public string Nome { get; set; }
         public SetorAtuacao SetorAtuacao { get; set; }
         public string CNPJ { get; set; }
@@ -21,5 +22,7 @@ namespace source.Models
         public string Telefone { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string Foto { get; set; }
+        public string Descricao { get; set; }
     }
 }
