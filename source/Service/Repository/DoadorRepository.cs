@@ -16,24 +16,24 @@ namespace source.Service.Repository
             _noSql = noSql;
         }
 
-        public async Task<IEnumerable<Doador>> GetAllDocument()
+        public Task<IEnumerable<Doador>> GetAllDocument()
         {
-            return await _noSql.GetAllDocument<Doador>();
+            return _noSql.GetAllDocument<Doador>();
         }
 
-        public async Task<IEnumerable<Doador>> GetByAsync(Expression<Func<Doador, bool>> filter)
+        public Task<IEnumerable<Doador>> GetByAsync(Expression<Func<Doador, bool>> filter)
         {
-            return await _noSql.GetDocumentsByFilter<Doador>(filter);
+            return _noSql.GetDocumentsByFilter<Doador>(filter);
         }
 
-        public async Task<Doador> GetDocumentByID(string _id)
+        public Task<Doador> GetDocumentByID(string _id)
         {
-            return await _noSql.GetDocumentByID<Doador>(_id);
+            return _noSql.GetDocumentByID<Doador>(_id);
         }
 
-        public async Task InsertOrUpdateAsync(Doador entity)
+        public Task InsertOrUpdateAsync(Doador entity)
         {
-            await _noSql.InsertOrUpdateAsync(entity);
+            return _noSql.InsertOrUpdateAsync(entity);
         }
     }
 }

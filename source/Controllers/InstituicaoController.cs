@@ -29,7 +29,7 @@ namespace source.Controllers
             var dadosInstituicaoVM = await _instituicaoService.Consultar(id);
 
             if (dadosInstituicaoVM == null)
-                return NotFound("Instituicao não localizada");
+                return NotFound();
 
             return Ok(dadosInstituicaoVM);
         }

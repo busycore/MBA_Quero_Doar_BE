@@ -32,7 +32,7 @@ namespace source.Controllers
             var dadosCupomVM = await _meusCuponsService.Consultar(id);
 
             if (dadosCupomVM == null)
-                return NotFound("Meu cupon não localizado");
+                return NotFound();
 
             return Ok(dadosCupomVM);
         }

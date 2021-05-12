@@ -18,24 +18,24 @@ namespace source.Service.Repository
             _noSql = noSql;
         }
 
-        public async Task<IEnumerable<Cupom>> GetAllDocument()
+        public Task<IEnumerable<Cupom>> GetAllDocument()
         {
-            return await _noSql.GetAllDocument<Cupom>();
+            return _noSql.GetAllDocument<Cupom>();
         }
 
-        public async Task<IEnumerable<Cupom>> GetByAsync(Expression<Func<Cupom, bool>> filter)
+        public Task<IEnumerable<Cupom>> GetByAsync(Expression<Func<Cupom, bool>> filter)
         {
-            return await _noSql.GetDocumentsByFilter<Cupom>(filter);
+            return _noSql.GetDocumentsByFilter(filter);
         }
 
-        public async Task<Cupom> GetDocumentByID(string _id)
+        public Task<Cupom> GetDocumentByID(string _id)
         {
-            return await _noSql.GetDocumentByID<Cupom>(_id);
+            return _noSql.GetDocumentByID<Cupom>(_id);
         }
 
-        public async Task InsertOrUpdateAsync(Cupom entity)
+        public Task InsertOrUpdateAsync(Cupom entity)
         {
-            await _noSql.InsertOrUpdateAsync(entity);
+            return _noSql.InsertOrUpdateAsync(entity);
         }
     }
 }

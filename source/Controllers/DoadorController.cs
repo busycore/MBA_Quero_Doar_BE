@@ -29,7 +29,7 @@ namespace source.Controllers
             var dadosDoadorVM = await _doadorService.Consultar(id);
 
             if (dadosDoadorVM == null)
-                return NotFound("Doador não localizado");
+                return NotFound();
 
             return Ok(dadosDoadorVM);
         }

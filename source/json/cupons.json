@@ -1,0 +1,104 @@
+{
+  "cupons": [
+    {
+      "_id": "231231",
+      "Ativo": true,
+      "DataValidade": "20/08/2022",
+      "Descricao": "R$10,00 no Ifood",
+      "Nivel": 1,
+      "Nome": "IF10",
+      "Valor": 10,
+      "EmpresaParceria": {
+        "id": "23123121",
+        "nome": "Ifood",
+        "cnpj": "1231231312",
+        "email": "ifood@ifood.com",
+        "password": "23442",
+        "pessoaContato": "Sonia",
+        "site": "ifood.com",
+        "foto": "https://cdn.freelogovectors.net/wp-content/uploads/2020/10/ifood-logo.png",
+        "telefone": "1231231"
+      }
+    },
+    {
+      "_id": "4654",
+      "Ativo": false,
+      "DataValidade": "10/05/2022",
+      "Descricao": "R$20,00 no Ifood",
+      "Nivel": 2,
+      "Nome": "IF20",
+      "Valor": 20,
+      "EmpresaParceria": {
+        "id": "23123121",
+        "nome": "Ifood",
+        "cnpj": "1231231312",
+        "email": "ifood@ifood.com",
+        "password": "23442",
+        "pessoaContato": "Sonia",
+        "site": "ifood.com",
+        "foto": "https://cdn.freelogovectors.net/wp-content/uploads/2020/10/ifood-logo.png",
+        "telefone": "1231231"
+      }
+    },
+    {
+      "_id": "323232",
+      "Ativo": true,
+      "DataValidade": "10/05/2022",
+      "Descricao": "R$30,00 no Ifood",
+      "Nivel": 3,
+      "Nome": "IF30",
+      "Valor": 30,
+      "EmpresaParceria": {
+        "id": "23123121",
+        "nome": "Ifood",
+        "cnpj": "1231231312",
+        "email": "ifood@ifood.com",
+        "password": "23442",
+        "pessoaContato": "Sonia",
+        "site": "ifood.com",
+        "foto": "https://cdn.freelogovectors.net/wp-content/uploads/2020/10/ifood-logo.png",
+        "telefone": "1231231"
+      }
+    },
+    {
+      "_id": "65456",
+      "Ativo": true,
+      "DataValidade": "10/05/2022",
+      "Descricao": "R$15,00 no Ifood",
+      "Nivel": 2,
+      "Nome": "IF15",
+      "Valor": 15,
+      "EmpresaParceria": {
+        "id": "23123121",
+        "nome": "Ifood",
+        "cnpj": "1231231312",
+        "email": "ifood@ifood.com",
+        "password": "23442",
+        "pessoaContato": "Sonia",
+        "site": "ifood.com",
+        "foto": "https://cdn.freelogovectors.net/wp-content/uploads/2020/10/ifood-logo.png",
+        "telefone": "1231231"
+      }
+    },
+    {
+      "_id": "654645",
+      "Ativo": true,
+      "DataValidade": "10/05/2022",
+      "Descricao": "R$10,00 no UBER",
+      "Nivel": 3,
+      "Nome": "UB10",
+      "Valor": 25,
+      "EmpresaParceria": {
+        "id": "6456456456",
+        "nome": "Uber",
+        "cnpj": "1231231312",
+        "email": "Uber@ifood.com",
+        "password": "23442",
+        "pessoaContato": "Marcia",
+        "site": "Uber.com",
+        "foto": "https://pngimg.com/uploads/uber/uber_PNG24.png",
+        "telefone": "1231231"
+      }
+    }
+  ]
+}

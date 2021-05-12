@@ -16,24 +16,24 @@ namespace source.Service.Repository
             _noSql = noSql;
         }
 
-        public async Task<IEnumerable<Pagamento>> GetAllDocument()
+        public Task<IEnumerable<Pagamento>> GetAllDocument()
         {
-            return await _noSql.GetAllDocument<Pagamento>();
+            return _noSql.GetAllDocument<Pagamento>();
         }
 
-        public async Task<IEnumerable<Pagamento>> GetByAsync(Expression<Func<Pagamento, bool>> filter)
+        public Task<IEnumerable<Pagamento>> GetByAsync(Expression<Func<Pagamento, bool>> filter)
         {
-            return await _noSql.GetDocumentsByFilter<Pagamento>(filter);
+            return _noSql.GetDocumentsByFilter<Pagamento>(filter);
         }
 
-        public async Task<Pagamento> GetDocumentByID(string _id)
+        public Task<Pagamento> GetDocumentByID(string _id)
         {
-            return await _noSql.GetDocumentByID<Pagamento>(_id);
+            return _noSql.GetDocumentByID<Pagamento>(_id);
         }
 
-        public async Task InsertOrUpdateAsync(Pagamento entity)
+        public Task InsertOrUpdateAsync(Pagamento entity)
         {
-            await _noSql.InsertOrUpdateAsync(entity);
+            return _noSql.InsertOrUpdateAsync(entity);
         }
     }
 }

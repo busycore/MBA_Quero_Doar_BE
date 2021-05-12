@@ -28,7 +28,7 @@ namespace source.Controllers
             var listaDadosSetorAtuacaoVM = await _setorAtuacaoService.Listar();
 
             if (listaDadosSetorAtuacaoVM == null)
-                return NotFound("Setor de atuação não localizado");
+                return NotFound();
 
             return Ok(listaDadosSetorAtuacaoVM);
         }
@@ -46,7 +46,7 @@ namespace source.Controllers
             var dadosSetorAtuacaoVM = await _setorAtuacaoService.Consultar(id);
 
             if (dadosSetorAtuacaoVM == null)
-                return NotFound("Setor de atuação não localizado");
+                return NotFound();
 
             return Ok(dadosSetorAtuacaoVM);
         }

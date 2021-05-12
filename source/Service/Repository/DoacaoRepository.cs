@@ -16,24 +16,24 @@ namespace source.Service.Repository
             _noSql = noSql;
         }
 
-        public async Task<IEnumerable<Doacao>> GetAllDocument()
+        public Task<IEnumerable<Doacao>> GetAllDocument()
         {
-            return await _noSql.GetAllDocument<Doacao>();
+            return _noSql.GetAllDocument<Doacao>();
         }
 
-        public async Task<IEnumerable<Doacao>> GetByAsync(Expression<Func<Doacao, bool>> filter)
+        public Task<IEnumerable<Doacao>> GetByAsync(Expression<Func<Doacao, bool>> filter)
         {
-            return await _noSql.GetDocumentsByFilter<Doacao>(filter);
+            return _noSql.GetDocumentsByFilter<Doacao>(filter);
         }
 
-        public async Task<Doacao> GetDocumentByID(string _id)
+        public Task<Doacao> GetDocumentByID(string _id)
         {
-            return await _noSql.GetDocumentByID<Doacao>(_id);
+            return _noSql.GetDocumentByID<Doacao>(_id);
         }
 
-        public async Task InsertOrUpdateAsync(Doacao entity)
+        public Task InsertOrUpdateAsync(Doacao entity)
         {
-            await _noSql.InsertOrUpdateAsync(entity);
+            return _noSql.InsertOrUpdateAsync(entity);
         }
     }
 }

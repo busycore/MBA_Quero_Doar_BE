@@ -30,7 +30,7 @@ namespace source.Controllers
             var listarMinhasDoacoes = await _minhasDoacoesService.ListarMinhasDoacoes(id);
 
             if (listarMinhasDoacoes == null)
-                return NotFound("Doador não foi localizado");
+                return NotFound();
 
             return Ok(listarMinhasDoacoes);
         }

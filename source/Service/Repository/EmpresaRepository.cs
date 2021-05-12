@@ -16,24 +16,24 @@ namespace source.Service.Repository
             _noSql = noSql;
         }
 
-        public async Task<IEnumerable<Empresa>> GetAllDocument()
+        public Task<IEnumerable<Empresa>> GetAllDocument()
         {
-            return await _noSql.GetAllDocument<Empresa>();
+            return _noSql.GetAllDocument<Empresa>();
         }
 
-        public async Task<IEnumerable<Empresa>> GetByAsync(Expression<Func<Empresa, bool>> filter)
+        public Task<IEnumerable<Empresa>> GetByAsync(Expression<Func<Empresa, bool>> filter)
         {
-            return await _noSql.GetDocumentsByFilter<Empresa>(filter);
+            return _noSql.GetDocumentsByFilter<Empresa>(filter);
         }
 
-        public async Task<Empresa> GetDocumentByID(string _id)
+        public Task<Empresa> GetDocumentByID(string _id)
         {
-            return await _noSql.GetDocumentByID<Empresa>(_id);
+            return _noSql.GetDocumentByID<Empresa>(_id);
         }
 
-        public async Task InsertOrUpdateAsync(Empresa entity)
+        public Task InsertOrUpdateAsync(Empresa entity)
         {
-            await _noSql.InsertOrUpdateAsync(entity);
+            return _noSql.InsertOrUpdateAsync(entity);
         }
     }
 }

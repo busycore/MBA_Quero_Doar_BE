@@ -16,24 +16,24 @@ namespace source.Service.Repository
             _noSql = noSql;
         }
 
-        public async Task<IEnumerable<SetorAtuacao>> GetAllDocument()
+        public Task<IEnumerable<SetorAtuacao>> GetAllDocument()
         {
-            return await _noSql.GetAllDocument<SetorAtuacao>();
+            return _noSql.GetAllDocument<SetorAtuacao>();
         }
 
-        public async Task<IEnumerable<SetorAtuacao>> GetByAsync(Expression<Func<SetorAtuacao, bool>> filter)
+        public Task<IEnumerable<SetorAtuacao>> GetByAsync(Expression<Func<SetorAtuacao, bool>> filter)
         {
-            return await _noSql.GetDocumentsByFilter<SetorAtuacao>(filter);
+            return _noSql.GetDocumentsByFilter<SetorAtuacao>(filter);
         }
 
-        public async Task<SetorAtuacao> GetDocumentByID(string _id)
+        public Task<SetorAtuacao> GetDocumentByID(string _id)
         {
-            return await _noSql.GetDocumentByID<SetorAtuacao>(_id);
+            return _noSql.GetDocumentByID<SetorAtuacao>(_id);
         }
 
-        public async Task InsertOrUpdateAsync(SetorAtuacao entity)
+        public Task InsertOrUpdateAsync(SetorAtuacao entity)
         {
-            await _noSql.InsertOrUpdateAsync(entity);
+            return _noSql.InsertOrUpdateAsync(entity);
         }
     }
 }

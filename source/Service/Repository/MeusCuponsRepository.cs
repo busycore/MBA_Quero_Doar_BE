@@ -18,24 +18,24 @@ namespace source.Service.Repository
             _noSql = noSql;
         }
 
-        public async Task<IEnumerable<MeusCupons>> GetAllDocument()
+        public Task<IEnumerable<MeusCupons>> GetAllDocument()
         {
-            return await _noSql.GetAllDocument<MeusCupons>();
+            return _noSql.GetAllDocument<MeusCupons>();
         }
 
-        public async Task<IEnumerable<MeusCupons>> GetByAsync(Expression<Func<MeusCupons, bool>> filter)
+        public Task<IEnumerable<MeusCupons>> GetByAsync(Expression<Func<MeusCupons, bool>> filter)
         {
-            return await _noSql.GetDocumentsByFilter<MeusCupons>(filter);
+            return _noSql.GetDocumentsByFilter<MeusCupons>(filter);
         }
 
-        public async Task<MeusCupons> GetDocumentByID(string _id)
+        public Task<MeusCupons> GetDocumentByID(string _id)
         {
-            return await _noSql.GetDocumentByID<MeusCupons>(_id);
+            return _noSql.GetDocumentByID<MeusCupons>(_id);
         }
 
-        public async Task InsertOrUpdateAsync(MeusCupons entity)
+        public Task InsertOrUpdateAsync(MeusCupons entity)
         {
-            await _noSql.InsertOrUpdateAsync(entity);
+            return _noSql.InsertOrUpdateAsync(entity);
         }
     }
 }

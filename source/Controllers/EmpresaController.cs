@@ -29,11 +29,10 @@ namespace source.Controllers
             var dadosEmpresaVM = await _empresaService.Consultar(id);
 
             if (dadosEmpresaVM == null)
-                return NotFound("Empresa não localizada");
+                return NotFound();
 
             return Ok(dadosEmpresaVM);
         }
-
 
         /// <summary>
         /// Método para gravar uma nova Empresa
