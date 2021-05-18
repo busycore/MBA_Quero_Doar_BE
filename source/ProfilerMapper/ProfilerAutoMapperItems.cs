@@ -2,6 +2,7 @@
 using MongoDB.Bson;
 using source.Models;
 using source.ViewModel.Cupom;
+using source.ViewModel.Doador;
 using source.ViewModel.Empresa;
 using source.ViewModel.Instituicao;
 using source.ViewModel.SetorAtuacao;
@@ -30,6 +31,11 @@ namespace source.ProfilerMapper
             _ = CreateMap<SetorAtuacao, DadosSetorAtuacaoVM>()
                 .ForMember(m => m.Id, opt => opt.MapFrom(src => src._id.ToString()));
             _ = CreateMap<DadosSetorAtuacaoVM, SetorAtuacao>()
+                .ForMember(m => m._id, opt => opt.MapFrom(src => new ObjectId(src.Id)));
+
+            _ = CreateMap<Doador, DadosDoadorVM>()
+                .ForMember(m => m.Id, opt => opt.MapFrom(src => src._id.ToString()));
+            _ = CreateMap<DadosDoadorVM, Doador>()
                 .ForMember(m => m._id, opt => opt.MapFrom(src => new ObjectId(src.Id)));
         }
     }
