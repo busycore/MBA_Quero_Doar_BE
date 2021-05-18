@@ -44,7 +44,7 @@ namespace source.Service
         {
             DadosEmpresaVM dadosEmpresaVM = new DadosEmpresaVM
             {
-                Id = empresa._id.ToString(),
+                //Id = empresa._id.ToString(),
                 Nome = empresa.Nome,
                 CNPJ = empresa.CNPJ,
                 Site = empresa.Site,

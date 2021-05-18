@@ -33,7 +33,6 @@ namespace source
         {
             services.AddScoped<INoSql, NoSql>();
 
-
             services.AddScoped<DoadorService>();
             services.AddScoped<DoadorRepository>();
             services.AddScoped<IRepository<Doador>, DoadorRepository>();
@@ -69,6 +68,7 @@ namespace source
             services.AddScoped<MeusCuponsRepository>();
             services.AddScoped<IRepository<MeusCupons>, MeusCuponsRepository>();
 
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

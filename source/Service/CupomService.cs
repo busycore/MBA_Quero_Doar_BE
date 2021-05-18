@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using AutoMapper;
+using MongoDB.Bson;
 using source.Models;
 using source.Service.Repository;
 using source.ViewModel.Cupom;
@@ -11,43 +12,24 @@ namespace source.Service
     public class CupomService
     {
         private readonly CupomRepository _cupomRepository;
-        public CupomService(CupomRepository cupomRepository)
+        private readonly IMapper _mapper;
+
+        public CupomService(CupomRepository cupomRepository, IMapper mapper)
         {
             _cupomRepository = cupomRepository;
+            _mapper = mapper;
         }
 
-        public async Task<Cupom> ConsultarCupom(string id)
+        public Task<Cupom> ConsultarCupom(string id)
         {
-            return await _cupomRepository.GetDocumentByID(id);
+            return _cupomRepository.GetDocumentByID(id);
         }
 
         public async Task<DadosCupomVM> Consultar(string id)
         {
             var cupom = await _cupomRepository.GetDocumentByID(id);
-
-            if (cupom == null)
-                return null;
-
-            DadosCupomVM dadosCupomVM = new DadosCupomVM
-            {
-                Id = cupom._id.ToString(),
-                IdEmpresaParceira = cupom.EmpresaParceria._id.ToString(),
-                Nome = cupom.Nome,
-                Descricao = cupom.Descricao,
-                Valor = cupom.Valor,
-                DataValidade = cupom.DataValidade
-            };
-
-            if (cupom.EmpresaParceria != null)
-            {
-                dadosCupomVM.DadosEmpresaVM = new DadosEmpresaVM()
-                {
-                    Id = cupom.EmpresaParceria._id.ToString(),
-                    Nome = cupom.EmpresaParceria.Nome
-                };
-            }
-         
-            return dadosCupomVM;
+            var map = _mapper.Map<DadosCupomVM>(cupom);
+            return map;
         }
 
         public async Task<string> Salvar(CadastroCupomVM cadastroCupomVM)
@@ -63,7 +45,6 @@ namespace source.Service
                 {
                     _id = new ObjectId(cadastroCupomVM.IdEmpresaParceira),
                     Nome = cadastroCupomVM.NomeEmpresaParceira
-
                 }
             };
 

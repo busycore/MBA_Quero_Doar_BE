@@ -8,7 +8,6 @@ using source.ViewModel.MinhaConta;
 using System;
 using System.Threading.Tasks;
 
-
 namespace source.Service
 {
     public class MeusCuponsService
@@ -18,7 +17,7 @@ namespace source.Service
         private readonly EmpresaRepository _empresaRepository;
         private readonly DoadorRepository _doadorRepository;
 
-        public MeusCuponsService(MeusCuponsRepository meusCuponsRepository , CupomRepository cupomRepository , EmpresaRepository empresaRepository , DoadorRepository doadorRepository)
+        public MeusCuponsService(MeusCuponsRepository meusCuponsRepository, CupomRepository cupomRepository, EmpresaRepository empresaRepository, DoadorRepository doadorRepository)
         {
             _meusCuponsRepository = meusCuponsRepository;
             _cupomRepository = cupomRepository;
@@ -38,38 +37,38 @@ namespace source.Service
 
             if (meuCupon == null)
                 return null;
-            
-            dadosMeusCupomVM.Id = meuCupon._id.ToString();
-            dadosMeusCupomVM.DataValidade = meuCupon.DataValidade;
-            dadosMeusCupomVM.DataResgate = meuCupon.DataResgate;
 
-            if (meuCupon.EmpresaParceria != null)
-            {
-                dadosMeusCupomVM.DadosEmpresa = new DadosEmpresaVM()
-                {
-                    Id = meuCupon.EmpresaParceria._id.ToString(),
-                    Nome = meuCupon.EmpresaParceria.Nome
-                };
-            }
+            //dadosMeusCupomVM.Id = meuCupon._id.ToString();
+            //dadosMeusCupomVM.DataValidade = meuCupon.DataValidade;
+            //dadosMeusCupomVM.DataResgate = meuCupon.DataResgate;
 
-            if (meuCupon.Doador != null)
-            {
-                dadosMeusCupomVM.DadosDoador = new DadosDoadorVM()
-                {
-                    Id = meuCupon.Doador._id.ToString(),
-                    Nome = meuCupon.Doador.Nome
-                };
-            }
+            //if (meuCupon.EmpresaParceria != null)
+            //{
+            //    dadosMeusCupomVM.DadosEmpresa = new DadosEmpresaVM()
+            //    {
+            //        Id = meuCupon.EmpresaParceria._id.ToString(),
+            //        Nome = meuCupon.EmpresaParceria.Nome
+            //    };
+            //}
 
-            if (meuCupon.Cupom != null)
-            {
-                dadosMeusCupomVM.Cupom = new DadosCupomVM()
-                {
-                    Id = meuCupon.Doador._id.ToString(),
-                    Nome = meuCupon.Doador.Nome,
-                    DataValidade = meuCupon.DataValidade
-                };
-            }
+            //if (meuCupon.Doador != null)
+            //{
+            //    dadosMeusCupomVM.DadosDoador = new DadosDoadorVM()
+            //    {
+            //        Id = meuCupon.Doador._id.ToString(),
+            //        Nome = meuCupon.Doador.Nome
+            //    };
+            //}
+
+            //if (meuCupon.Cupom != null)
+            //{
+            //    dadosMeusCupomVM.Cupom = new DadosCupomVM()
+            //    {
+            //        Id = meuCupon.Doador._id.ToString(),
+            //        Nome = meuCupon.Doador.Nome,
+            //        DataValidade = meuCupon.DataValidade
+            //    };
+            //}
 
             return dadosMeusCupomVM;
         }

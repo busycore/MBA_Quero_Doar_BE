@@ -6,8 +6,7 @@ namespace source.ViewModel.Cupom
     public class DadosCupomVM
     {
         public string Id { get; set; }
-        public string IdEmpresaParceira { get; set; }
-        public DadosEmpresaVM DadosEmpresaVM { get; set; }
+        public DadosEmpresaVM EmpresaParceria { get; set; }
         public string Nome { get; set; }
         public decimal Valor { get; set; }
         public decimal Nivel { get; set; }
