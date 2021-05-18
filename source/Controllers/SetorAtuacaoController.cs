@@ -23,13 +23,9 @@ namespace source.Controllers
         /// <returns>Lista Entidade ViewModel SetorAtuacao</returns>
         [HttpGet]
         [ProducesResponseType(200)]
-        public async Task<ActionResult<IEnumerable<DadosSetorAtuacaoVM>>> Listar()
+        public async Task<ActionResult<IEnumerable<DadosSetorAtuacaoVM>>> ListarTodos()
         {
-            var listaDadosSetorAtuacaoVM = await _setorAtuacaoService.Listar();
-
-            if (listaDadosSetorAtuacaoVM == null)
-                return NotFound();
-
+            var listaDadosSetorAtuacaoVM = await _setorAtuacaoService.ListarTodos();
             return Ok(listaDadosSetorAtuacaoVM);
         }
 
@@ -49,19 +45,6 @@ namespace source.Controllers
                 return NotFound();
 
             return Ok(dadosSetorAtuacaoVM);
-        }
-
-        /// <summary>
-        /// Método para gravar um novo SetorAtuacao
-        /// </summary>
-        /// <param name="cadastroSetorAtuacaoVM">Entidade ViewModel cadastroSetorAtuacaoVM</param>
-        /// <returns>Código do SetorAtuacao</returns>
-        [HttpPost]
-        [ProducesResponseType(200)]
-        public async Task<ActionResult<string>> Salvar(CadastroSetorAtuacaoVM cadastroSetorAtuacaoVM)
-        {
-            string id = await _setorAtuacaoService.Salvar(cadastroSetorAtuacaoVM);
-            return Ok(id);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using source.Models;
+﻿using AutoMapper;
+using source.Models;
 using source.Service.Interfaces;
 using source.Service.Repository;
 using source.ViewModel.SetorAtuacao;
@@ -10,54 +11,28 @@ namespace source.Service
     public class SetorAtuacaoService : IService
     {
         private readonly SetorAtuacaoRepository _setorAtuacaoRepository;
+        private readonly IMapper _mapper;
 
-        public SetorAtuacaoService(SetorAtuacaoRepository setorAtuacaoRepository)
+        public SetorAtuacaoService(SetorAtuacaoRepository setorAtuacaoRepository, IMapper mapper)
         {
             _setorAtuacaoRepository = setorAtuacaoRepository;
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<DadosSetorAtuacaoVM>> Listar()
+        public async Task<IEnumerable<DadosSetorAtuacaoVM>> ListarTodos()
         {
-            List<DadosSetorAtuacaoVM> listaDadosSetorAtuacaoVM = new List<DadosSetorAtuacaoVM>();
-            var listaSetorAtuacao = await _setorAtuacaoRepository.GetAllDocument();
+            var SetorAtuacaoTodos = await _setorAtuacaoRepository.GetAllDocument();
+            var list = _mapper.Map<IEnumerable<DadosSetorAtuacaoVM>>(SetorAtuacaoTodos);
 
-            foreach (var setorAtuacao in listaSetorAtuacao)
-            {
-                DadosSetorAtuacaoVM dadosSetorAtuacaoVM = new DadosSetorAtuacaoVM
-                {
-                    Id = setorAtuacao._id.ToString(),
-                    Descricao = setorAtuacao.Descricao
-                };
-                listaDadosSetorAtuacaoVM.Add(dadosSetorAtuacaoVM);
-            }
-
-            return listaDadosSetorAtuacaoVM;
+            return list;
         }
 
         public async Task<DadosSetorAtuacaoVM> Consultar(string id)
         {
-            DadosSetorAtuacaoVM dadosSetorAtuacaoVM = new DadosSetorAtuacaoVM();
-            var setorAtuacao = await _setorAtuacaoRepository.GetDocumentByID(id);
-
-            if (setorAtuacao == null)
-                return null;
-
-            dadosSetorAtuacaoVM.Id = setorAtuacao._id.ToString();
-            dadosSetorAtuacaoVM.Descricao = setorAtuacao.Descricao;
+            var setorModel = await _setorAtuacaoRepository.GetDocumentByID(id);
+            var list = _mapper.Map<DadosSetorAtuacaoVM>(setorModel);
 
             return dadosSetorAtuacaoVM;
-        }
-
-        public async Task<string> Salvar(CadastroSetorAtuacaoVM cadastroSetorAtuacaoVM)
-        {
-            SetorAtuacao setorAtuacao = new SetorAtuacao
-            {
-                Descricao = cadastroSetorAtuacaoVM.Descricao
-            };
-
-            await _setorAtuacaoRepository.InsertOrUpdateAsync(setorAtuacao);
-
-            return setorAtuacao._id.ToString();
         }
     }
 }
