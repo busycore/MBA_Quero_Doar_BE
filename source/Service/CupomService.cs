@@ -29,7 +29,7 @@ namespace source.Service
 
         public async Task<DadosCupomVM> Consultar(string id)
         {
-            var cupom = await _cupomRepository.GetDocumentByID(id);
+            var cupom = await ConsultarCupom(id);
             var map = _mapper.Map<DadosCupomVM>(cupom);
             return map;
         }

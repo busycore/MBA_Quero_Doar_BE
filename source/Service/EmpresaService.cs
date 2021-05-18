@@ -19,9 +19,14 @@ namespace source.Service
             _mapper = mapper;
         }
 
+        public Task<Empresa> ConsultarEmpresa(string id)
+        {
+            return _empresaRepository.GetDocumentByID(id);
+        }
+
         public async Task<DadosEmpresaVM> Consultar(string id)
         {
-            var empresaModel = await _empresaRepository.GetDocumentByID(id);
+            var empresaModel = await ConsultarEmpresa(id);
             var empresaVM = _mapper.Map<DadosEmpresaVM>(empresaModel);
 
             return empresaVM;
