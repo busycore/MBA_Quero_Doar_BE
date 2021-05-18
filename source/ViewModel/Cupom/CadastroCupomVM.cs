@@ -10,6 +10,6 @@ namespace source.ViewModel.Cupom
         public decimal Valor { get; set; }
         public decimal Nivel { get; set; }
         public string Descricao { get; set; }
-        public string DataValidade { get; set; }
+        public DateTime DataValidade { get; set; }
     }
 }

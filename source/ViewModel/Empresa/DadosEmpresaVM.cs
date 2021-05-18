@@ -2,6 +2,7 @@
 {
     public class DadosEmpresaVM
     {
+        public string id { get; set; }
         public string Nome { get; set; }
         public string CNPJ { get; set; }
         public string Site { get; set; }

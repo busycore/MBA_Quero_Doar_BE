@@ -2,6 +2,7 @@
 using source.Service;
 using source.ViewModel.Cupom;
 using source.ViewModel.Empresa;
+using System;
 using System.Threading.Tasks;
 
 namespace source.Controllers
@@ -57,8 +58,8 @@ namespace source.Controllers
         [ProducesResponseType(200)]
         public async Task<ActionResult> Atualizar(AtualizaCupomVM atualizaCupomVM)
         {
-            await _cupomService.Atualizar(atualizaCupomVM);
-            return Ok();
+            throw new NotImplementedException();
+            //return Ok();
         }
     }
 }

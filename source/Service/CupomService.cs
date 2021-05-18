@@ -13,11 +13,13 @@ namespace source.Service
     {
         private readonly CupomRepository _cupomRepository;
         private readonly IMapper _mapper;
+        private readonly EmpresaRepository _empresaRepository;
 
-        public CupomService(CupomRepository cupomRepository, IMapper mapper)
+        public CupomService(CupomRepository cupomRepository, IMapper mapper, EmpresaRepository empresaRepository)
         {
             _cupomRepository = cupomRepository;
             _mapper = mapper;
+            _empresaRepository = empresaRepository;
         }
 
         public Task<Cupom> ConsultarCupom(string id)
@@ -34,45 +36,16 @@ namespace source.Service
 
         public async Task<string> Salvar(CadastroCupomVM cadastroCupomVM)
         {
-            Cupom cupom = new Cupom
-            {
-                Nome = cadastroCupomVM.Nome,
-                Descricao = cadastroCupomVM.Descricao,
-                Valor = cadastroCupomVM.Valor,
-                Ativo = true,
+            var newCumpom = _mapper.Map<Cupom>(cadastroCupomVM);
+            newCumpom.EmpresaParceria = await _empresaRepository.GetDocumentByID(cadastroCupomVM.IdEmpresaParceira);
 
-                EmpresaParceria = new Empresa()
-                {
-                    _id = new ObjectId(cadastroCupomVM.IdEmpresaParceira),
-                    Nome = cadastroCupomVM.NomeEmpresaParceira
-                }
-            };
-
-            if (!string.IsNullOrEmpty(cadastroCupomVM.DataValidade))
-                cupom.DataValidade = Convert.ToDateTime(cadastroCupomVM.DataValidade);
-
-            await _cupomRepository.InsertOrUpdateAsync(cupom);
-
-            return cupom._id.ToString();
+            await _cupomRepository.InsertOrUpdateAsync(newCumpom);
+            return newCumpom._id.ToString();
         }
 
-        public async Task Atualizar(AtualizaCupomVM atualizaCupomVM)
-        {
-            Cupom cupom = new Cupom
-            {
-                _id = new ObjectId(atualizaCupomVM.IdCupom),
-                Nome = atualizaCupomVM.Nome,
-                EmpresaParceria = new Empresa()
-                {
-                    _id = new ObjectId(atualizaCupomVM.IdEmpresaParceira),
-                    Nome = atualizaCupomVM.NomeEmpresaParceira
-                },
-                Descricao = atualizaCupomVM.Descricao,
-                Valor = atualizaCupomVM.Valor,
-                DataValidade = atualizaCupomVM.DataValidade
-            };
-
-            await _cupomRepository.InsertOrUpdateAsync(cupom);
-        }
+        //public async Task Atualizar(AtualizaCupomVM atualizaCupomVM)
+        //{
+        //    return Task.CompletedTask;
+        //}
     }
 }
