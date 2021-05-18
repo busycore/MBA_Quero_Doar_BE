@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
+using MongoDB.Bson;
 using source.Models;
 using source.ViewModel.Cupom;
 using source.ViewModel.Empresa;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using source.ViewModel.Instituicao;
+using source.ViewModel.SetorAtuacao;
 
 namespace source.ProfilerMapper
 {
@@ -13,11 +12,25 @@ namespace source.ProfilerMapper
     {
         public ProfilerAutoMapperItems()
         {
-            CreateMap<DadosCupomVM, Cupom>();
-            CreateMap<Cupom, DadosCupomVM>();
+            _ = CreateMap<DadosCupomVM, Cupom>()
+                .ForMember(m => m._id, opt => opt.MapFrom(src => new ObjectId(src.Id)));
+            _ = CreateMap<Cupom, DadosCupomVM>()
+                .ForMember(m => m.Id, opt => opt.MapFrom(src => src._id.ToString()));
 
-            CreateMap<Empresa, DadosEmpresaVM>();
-            CreateMap<DadosEmpresaVM, Empresa>();
+            _ = CreateMap<Empresa, DadosEmpresaVM>()
+                .ForMember(m => m.Id, opt => opt.MapFrom(src => src._id.ToString()));
+            _ = CreateMap<DadosEmpresaVM, Empresa>()
+                .ForMember(m => m._id, opt => opt.MapFrom(src => new ObjectId(src.Id)));
+
+            _ = CreateMap<DadosInstituicaoVM, Instituicao>()
+                .ForMember(m => m._id, opt => opt.MapFrom(src => new ObjectId(src.Id)));
+            _ = CreateMap<Instituicao, DadosInstituicaoVM>()
+                .ForMember(m => m.Id, opt => opt.MapFrom(src => src._id.ToString()));
+
+            _ = CreateMap<SetorAtuacao, DadosSetorAtuacaoVM>()
+                .ForMember(m => m.Id, opt => opt.MapFrom(src => src._id.ToString()));
+            _ = CreateMap<DadosSetorAtuacaoVM, SetorAtuacao>()
+                .ForMember(m => m._id, opt => opt.MapFrom(src => new ObjectId(src.Id)));
         }
     }
 }
