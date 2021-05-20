@@ -8,13 +8,13 @@ namespace source.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class InstituicoesAjudadasController : ControllerBase
+    public class InstituicaoAjudadaController : ControllerBase
     {
-        private readonly InstituicoesAjudadasService _instituicoesAjudadasService;
+        private readonly DoacaoService _doacaoService;
 
-        public InstituicoesAjudadasController(InstituicoesAjudadasService instituicoesAjudadasService)
+        public InstituicaoAjudadaController(DoacaoService doacaoService)
         {
-            _instituicoesAjudadasService = instituicoesAjudadasService;
+            _doacaoService = doacaoService;
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace source.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<IEnumerable<DadosInstituicoesAjudadasVM>>> Listar(string id)
         {
-            var listarMinhasDoacoes = await _instituicoesAjudadasService.ListarInstituicoesAjudadas(id);
+            var listarMinhasDoacoes = await _doacaoService.ListarInstituicaoAjudada(id);
 
             if (listarMinhasDoacoes == null)
                 return NotFound();
