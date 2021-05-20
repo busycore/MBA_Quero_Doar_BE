@@ -1,8 +1,4 @@
-﻿using source.ViewModel.Cupom;
-using source.ViewModel.Instituicao;
-using System;
-
-namespace source.ViewModel.Doacao
+﻿namespace source.ViewModel.Doacao
 {
     public class MinhasDoacoesCupomVM
     {

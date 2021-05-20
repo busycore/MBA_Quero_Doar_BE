@@ -63,7 +63,6 @@ namespace source
 
             services.AddScoped<InstituicoesAjudadasService>();
 
-            services.AddScoped<MeusCuponsService>();
             services.AddScoped<MeusCuponsRepository>();
             services.AddScoped<IRepository<MeusCupons>, MeusCuponsRepository>();
 

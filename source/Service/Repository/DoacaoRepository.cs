@@ -37,6 +37,11 @@ namespace source.Service.Repository
             return _noSql.GetDocumentsByFilter<Doacao>(m => m.Doador._id == new ObjectId(idDoador) && m.DataDoacao >= DateTime.Now.Date.AddYears(-1));
         }
 
+        public Task<IEnumerable<Doacao>> GetAllDoacaoByCupomLastYear(string idDoador)
+        {
+            return _noSql.GetDocumentsByFilter<Doacao>(m => m.Doador._id == new ObjectId(idDoador) && m.DataDoacao >= DateTime.Now.Date.AddYears(-1));
+        }
+
         public Task InsertOrUpdateAsync(Doacao entity)
         {
             return _noSql.InsertOrUpdateAsync(entity);

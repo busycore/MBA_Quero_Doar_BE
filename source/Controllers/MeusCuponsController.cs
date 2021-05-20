@@ -12,11 +12,11 @@ namespace source.Controllers
     [Route("api/[controller]")]
     public class MeusCuponsController : ControllerBase
     {
-        private readonly MeusCuponsService _meusCuponsService;
+        private readonly DoacaoService _doacaoService;
 
-        public MeusCuponsController(MeusCuponsService meusCuponsService)
+        public MeusCuponsController(DoacaoService doacaoService)
         {
-            _meusCuponsService = meusCuponsService;
+            _doacaoService = doacaoService;
         }
 
         /// <summary>
@@ -29,25 +29,12 @@ namespace source.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<DadosMeusCuponsVM>> Consultar(string id)
         {
-            var dadosCupomVM = await _meusCuponsService.Consultar(id);
+            var dadosCupomVM = await _doacaoService.ListarMeusCupons(id);
 
             if (dadosCupomVM == null)
                 return NotFound();
 
             return Ok(dadosCupomVM);
-        }
-
-        /// <summary>
-        /// Método para gravar um novo Cupom
-        /// </summary>
-        /// <param name="CadastroMeusCuponsVM">Entidade ViewModel CadastroMeusCuponsVM</param>
-        /// <returns>Código do Meu Cupom</returns>
-        [HttpPost]
-        [ProducesResponseType(200)]
-        public async Task<ActionResult<string>> Salvar(CadastroMeusCuponsVM cadastroMeusCuponsVM)
-        {
-            string id = await _meusCuponsService.Salvar(cadastroMeusCuponsVM);
-            return Ok(id);
         }
     }
 }

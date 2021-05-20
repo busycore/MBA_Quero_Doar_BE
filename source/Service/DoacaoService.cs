@@ -6,6 +6,7 @@ using source.Service.Repository;
 using source.ViewModel.Doacao;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace source.Service
@@ -40,6 +41,14 @@ namespace source.Service
             return _minhasDoacoes;
         }
 
+        public async Task<IEnumerable<MinhasDoacoesCupomVM>> ListarMeusCupons(string idDoador)
+        {
+            var _doacao = await _doacaoRepository.GetAllDoacaoByCupomLastYear(idDoador);
+            var _listaCupom = _doacao.Select(m => m.Cupom);
+            var _meusCupons = _mapper.Map<IEnumerable<MinhasDoacoesCupomVM>>(_listaCupom);
+            return _meusCupons;
+        }
+
         public async Task<IEnumerable<DoacaoInstituicoesAjudadasVM>> ListarInstituicoesAjudadas(string idDoador)
         {
             ObjectId id = new ObjectId(idDoador);
@@ -65,23 +74,7 @@ namespace source.Service
 
         public async Task<string> Salvar(CadastroDoacaoVM cadastroDoacaoVM)
         {
-            Doador doador = await _doadorService.ConsultarDoador(cadastroDoacaoVM.IdDoador);
-            Instituicao instituicao = await _instituicaoService.ConsultarInstituicao(cadastroDoacaoVM.IdInstituicao);
-            Pagamento pagamento = await _pagamentoService.ConsultarPagamento(cadastroDoacaoVM.IdPagamento);
-            Cupom cupom = await _cupomService.ConsultarCupom(cadastroDoacaoVM.IdCupom);
-
-            Doacao doacao = new Doacao
-            {
-                Doador = doador,
-                Instituicao = instituicao,
-                Pagamento = pagamento,
-                Cupom = cupom,
-                DataDoacao = DateTime.Now,
-                ValorInstituicao = cadastroDoacaoVM.Valor
-            };
-
-            await _doacaoRepository.InsertOrUpdateAsync(doacao);
-            return doacao._id.ToString();
+            return null;
         }
     }
 }
