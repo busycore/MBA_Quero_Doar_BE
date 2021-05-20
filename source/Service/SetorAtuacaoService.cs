@@ -31,8 +31,7 @@ namespace source.Service
         {
             var setorModel = await _setorAtuacaoRepository.GetDocumentByID(id);
             var list = _mapper.Map<DadosSetorAtuacaoVM>(setorModel);
-
-            return dadosSetorAtuacaoVM;
+            return list;
         }
     }
 }

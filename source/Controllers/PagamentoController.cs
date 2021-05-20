@@ -27,9 +27,7 @@ namespace source.Controllers
         [ProducesResponseType(200)]
         public async Task<ActionResult<string>> Salvar(CadastroPagamentoVM cadastroPagamentoVM)
         {
-            var cadastroDoacaoVM = await _pagamentoService.GerarDoacao(cadastroPagamentoVM);
-            string id = await _doacaoService.Salvar(cadastroDoacaoVM);
-            return Ok(id);
+            return Ok("");
         }
     }
 }

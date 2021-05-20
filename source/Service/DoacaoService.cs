@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using AutoMapper;
+using MongoDB.Bson;
 using source.Models;
 using source.Service.Interfaces;
 using source.Service.Repository;
@@ -16,38 +17,27 @@ namespace source.Service
         private readonly InstituicaoService _instituicaoService;
         private readonly PagamentoService _pagamentoService;
         private readonly CupomService _cupomService;
+        private readonly IMapper _mapper;
 
         public DoacaoService(DoacaoRepository doacaoRepository, DoadorService doadorService,
                              InstituicaoService instituicaoService, PagamentoService pagamentoService,
-                             CupomService cupomService)
+                             CupomService cupomService,
+                             IMapper mapper)
         {
             _doacaoRepository = doacaoRepository;
             _doadorService = doadorService;
             _instituicaoService = instituicaoService;
             _pagamentoService = pagamentoService;
             _cupomService = cupomService;
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<DoacaoMinhasDoacoesVM>> ListarMinhasDoacoes(string idDoador)
+        public async Task<IEnumerable<MinhasDoacoesVM>> ListarMinhasDoacoes(string idDoador)
         {
-            ObjectId id = new ObjectId(idDoador);
-            DateTime umAnoAtras = DateTime.Now.AddYears(-1).Date;
+            var _doacao = await _doacaoRepository.GetAllDoacaoByDoadorLastYear(idDoador);
+            var _minhasDoacoes = _mapper.Map<IEnumerable<MinhasDoacoesVM>>(_doacao);
 
-            List<DoacaoMinhasDoacoesVM> listaDadosDoacaoVM = new();
-            var listaDoacao = await _doacaoRepository.GetByAsync(p => p.Doador._id == id && p.DataDoacao >= umAnoAtras);
-
-            foreach (var doacao in listaDoacao)
-            {
-                DoacaoMinhasDoacoesVM dadosMinhasDoacoesVM = new DoacaoMinhasDoacoesVM
-                {
-                    Cartao = doacao.Pagamento.NumeroCartao,
-                    Valor = doacao.Pagamento.Valor,
-                    DataDoacao = doacao.DataDoacao
-                };
-                listaDadosDoacaoVM.Add(dadosMinhasDoacoesVM);
-            }
-
-            return listaDadosDoacaoVM;
+            return _minhasDoacoes;
         }
 
         public async Task<IEnumerable<DoacaoInstituicoesAjudadasVM>> ListarInstituicoesAjudadas(string idDoador)
@@ -79,7 +69,6 @@ namespace source.Service
             Instituicao instituicao = await _instituicaoService.ConsultarInstituicao(cadastroDoacaoVM.IdInstituicao);
             Pagamento pagamento = await _pagamentoService.ConsultarPagamento(cadastroDoacaoVM.IdPagamento);
             Cupom cupom = await _cupomService.ConsultarCupom(cadastroDoacaoVM.IdCupom);
-
 
             Doacao doacao = new Doacao
             {

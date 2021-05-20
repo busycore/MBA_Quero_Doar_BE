@@ -23,40 +23,7 @@ namespace source.Service
 
         public async Task<string> Salvar(CadastroPagamentoVM cadastroPagamentoVM)
         {
-            var pagamento = ConvertToVM(cadastroPagamentoVM);
-            await _pagamentoRepository.InsertOrUpdateAsync(pagamento);
-            return pagamento._id.ToString();
-        }
-
-        public async Task<CadastroDoacaoVM> GerarDoacao(CadastroPagamentoVM cadastroPagamentoVM)
-        {
-            string idPagamento = await Salvar(cadastroPagamentoVM);
-            return ConvertToModel(cadastroPagamentoVM, idPagamento);
-        }
-
-        private static Pagamento ConvertToVM(CadastroPagamentoVM cadastroPagamentoVM)
-        {
-            Pagamento pagamento = new Pagamento
-            {
-                Valor = cadastroPagamentoVM.Valor,
-                NomeCartao = cadastroPagamentoVM.NomeCartao,
-                NumeroCartao = cadastroPagamentoVM.NumeroCartao,
-                CodigoSegurancaCartao = cadastroPagamentoVM.CodigoSegurancaCartao,
-                ValidadeCartao = cadastroPagamentoVM.ValidadeCartao
-            };
-            return pagamento;
-        }
-
-        private static CadastroDoacaoVM ConvertToModel(CadastroPagamentoVM cadastroPagamentoVM, string idPagamento)
-        {
-            CadastroDoacaoVM cadastroDoacaoVM = new CadastroDoacaoVM
-            {
-                IdDoador = cadastroPagamentoVM.IdDoador,
-                IdInstituicao = cadastroPagamentoVM.IdInstituicao,
-                Valor = cadastroPagamentoVM.Valor,
-                IdPagamento = idPagamento
-            };
-            return cadastroDoacaoVM;
+            return "";
         }
     }
 }
