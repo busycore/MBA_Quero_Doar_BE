@@ -4,6 +4,7 @@ using source.Models;
 using source.Service.Interfaces;
 using source.Service.Repository;
 using source.ViewModel.Empresa;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace source.Service
@@ -22,6 +23,11 @@ namespace source.Service
         public Task<Empresa> ConsultarEmpresa(string id)
         {
             return _empresaRepository.GetDocumentByID(id);
+        }
+
+        public Task<IEnumerable<Empresa>> GetAll()
+        {
+            return _empresaRepository.GetAllDocument();
         }
 
         public async Task<DadosEmpresaVM> Consultar(string id)

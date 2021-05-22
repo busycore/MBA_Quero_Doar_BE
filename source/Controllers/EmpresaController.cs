@@ -34,6 +34,14 @@ namespace source.Controllers
             return Ok(dadosEmpresaVM);
         }
 
+        [HttpGet()]
+        [ProducesResponseType(200)]
+        public async Task<ActionResult<DadosEmpresaVM>> GetAll()
+        {
+            var _list = await _empresaService.GetAll();
+            return Ok(_list);
+        }
+
         /// <summary>
         /// Método para gravar uma nova Empresa
         /// </summary>
