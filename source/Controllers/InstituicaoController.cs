@@ -35,6 +35,10 @@ namespace source.Controllers
             return Ok(dadosInstituicaoVM);
         }
 
+        /// <summary>
+        /// Listar Todas Instituições
+        /// </summary>
+        /// <returns></returns>
         [HttpGet()]
         [ProducesResponseType(200)]
         public async Task<ActionResult<IEnumerable<DadosInstituicaoVM>>> GetAll()

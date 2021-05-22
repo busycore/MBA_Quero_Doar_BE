@@ -37,6 +37,10 @@ namespace source.Controllers
             return Ok(dadosCupomVM);
         }
 
+        /// <summary>
+        /// Lista Todos os Cupons
+        /// </summary>
+        /// <returns></returns>
         [HttpGet()]
         [ProducesResponseType(200)]
         public async Task<ActionResult<IEnumerable<DadosCupomVM>>> GetAll()

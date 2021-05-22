@@ -35,6 +35,10 @@ namespace source.Controllers
             return Ok(dadosEmpresaVM);
         }
 
+        /// <summary>
+        /// Listar Todas as Empresas
+        /// </summary>
+        /// <returns></returns>
         [HttpGet()]
         [ProducesResponseType(200)]
         public async Task<ActionResult<IEnumerable<DadosEmpresaVM>>> GetAll()
