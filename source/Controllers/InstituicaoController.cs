@@ -34,6 +34,14 @@ namespace source.Controllers
             return Ok(dadosInstituicaoVM);
         }
 
+        [HttpGet()]
+        [ProducesResponseType(200)]
+        public async Task<ActionResult<DadosInstituicaoVM>> Consultar()
+        {
+            var _all = await _instituicaoService.GetAll();
+            return Ok(_all);
+        }
+
         /// <summary>
         /// Método para gravar uma nova Instituicao
         /// </summary>

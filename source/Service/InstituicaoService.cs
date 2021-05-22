@@ -22,6 +22,11 @@ namespace source.Service
             _mapper = mapper;
         }
 
+        public Task<IEnumerable<Instituicao>> GetAll()
+        {
+            return _instituicaoRepository.GetAllDocument();
+        }
+
         public Task<Instituicao> ConsultarInstituicao(string id)
         {
             return _instituicaoRepository.GetDocumentByID(id);
