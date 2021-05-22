@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using source.Service;
 using source.ViewModel.Empresa;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace source.Controllers
@@ -36,7 +37,7 @@ namespace source.Controllers
 
         [HttpGet()]
         [ProducesResponseType(200)]
-        public async Task<ActionResult<DadosEmpresaVM>> GetAll()
+        public async Task<ActionResult<IEnumerable<DadosEmpresaVM>>> GetAll()
         {
             var _list = await _empresaService.GetAll();
             return Ok(_list);

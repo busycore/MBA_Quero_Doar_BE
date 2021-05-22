@@ -5,6 +5,7 @@ using source.Service.Repository;
 using source.ViewModel.Cupom;
 using source.ViewModel.Empresa;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace source.Service
@@ -25,6 +26,11 @@ namespace source.Service
         public Task<Cupom> ConsultarCupom(string id)
         {
             return _cupomRepository.GetDocumentByID(id);
+        }
+
+        public Task<IEnumerable<Cupom>> GetAll()
+        {
+            return _cupomRepository.GetAllDocument();
         }
 
         public async Task<DadosCupomVM> Consultar(string id)

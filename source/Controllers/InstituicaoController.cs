@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using source.Service;
 using source.ViewModel.Instituicao;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace source.Controllers
@@ -36,7 +37,7 @@ namespace source.Controllers
 
         [HttpGet()]
         [ProducesResponseType(200)]
-        public async Task<ActionResult<DadosInstituicaoVM>> Consultar()
+        public async Task<ActionResult<IEnumerable<DadosInstituicaoVM>>> GetAll()
         {
             var _all = await _instituicaoService.GetAll();
             return Ok(_all);

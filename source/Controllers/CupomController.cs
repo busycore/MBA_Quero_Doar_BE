@@ -3,6 +3,7 @@ using source.Service;
 using source.ViewModel.Cupom;
 using source.ViewModel.Empresa;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace source.Controllers
@@ -33,6 +34,14 @@ namespace source.Controllers
             if (dadosCupomVM == null)
                 return NotFound();
 
+            return Ok(dadosCupomVM);
+        }
+
+        [HttpGet()]
+        [ProducesResponseType(200)]
+        public async Task<ActionResult<IEnumerable<DadosCupomVM>>> GetAll()
+        {
+            var dadosCupomVM = await _cupomService.GetAll();
             return Ok(dadosCupomVM);
         }
 
