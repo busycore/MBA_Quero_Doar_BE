@@ -169,7 +169,7 @@ namespace source.Controllers
 
             Doacao doacao = new()
             {
-                Cupom = IF10,
+                Cupom = new Cupom[] { IF10 },
                 DataDoacao = new(2021, 05, 10),
                 Doador = doador,
                 Instituicao = patas4,
@@ -180,7 +180,7 @@ namespace source.Controllers
 
             doacao = new()
             {
-                Cupom = UB10,
+                Cupom = new Cupom[] { UB10 },
                 DataDoacao = new(2021, 05, 05),
                 Doador = doador,
                 Instituicao = leoes,

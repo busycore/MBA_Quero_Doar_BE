@@ -15,9 +15,10 @@ namespace source.Models
 
         [BsonId]
         public ObjectId _id { get; set; }
+
         public Doador Doador { get; set; }
         public Instituicao Instituicao { get; set; }
-        public Cupom Cupom { get; set; }
+        public IEnumerable<Cupom> Cupom { get; set; } = Array.Empty<Cupom>();
         public DateTime DataDoacao { get; set; }
         public Pagamento Pagamento { get; set; }
         public decimal ValorInstituicao { get; set; }
