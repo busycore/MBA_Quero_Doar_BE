@@ -8,6 +8,7 @@ namespace source.ViewModel.Doacao
         public string id { get; set; }
         public MinhasDoacoesInstituicaoVM Instituicao { get; set; }
         public MinhasDoacoesCupomVM Cupom { get; set; }
+        public MinhasDoacoesPagamentoVM Pagamento { get; set; }
         public DateTime DataDoacao { get; set; }
         public decimal ValorDoado { get; set; }
     }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using source.Service;
-using source.ViewModel.MinhaConta;
+using source.ViewModel.Doacao;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -25,7 +25,7 @@ namespace source.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<IEnumerable<DadosMinhasDoacoesVM>>> Listar(string id)
+        public async Task<ActionResult<IEnumerable<MinhasDoacoesVM>>> Listar(string id)
         {
             var listarMinhasDoacoes = await _doacaoService.ListarMinhasDoacoes(id);
 
