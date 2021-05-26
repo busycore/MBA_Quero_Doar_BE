@@ -8,6 +8,8 @@ namespace source.ViewModel.Doacao
         public string Descricao { get; set; }
         public decimal Valor { get; set; }
         public string nome { get; set; }
+
+        public string dataValidade { get; set; }
         public DadosEmpresaVM EmpresaParceria { get; set; }
     }
 }
