@@ -44,8 +44,12 @@ namespace source.ProfilerMapper
                 .ForMember(m => m.ValorDoado, opt => opt.MapFrom(src => src.Pagamento.Valor));
             _ = CreateMap<Instituicao, MinhasDoacoesInstituicaoVM>()
                 .ForMember(m => m.Id, opt => opt.MapFrom(src => src._id.ToString()));
+
             _ = CreateMap<Cupom, MinhasDoacoesCupomVM>()
                 .ForMember(m => m.Id, opt => opt.MapFrom(src => src._id.ToString()));
+            _ = CreateMap<MinhasDoacoesCupomVM, Cupom>()
+                .ForMember(m => m._id, opt => opt.MapFrom(src => new ObjectId(src.Id)));
+
             _ = CreateMap<Pagamento, MinhasDoacoesPagamentoVM>()
                 .ForMember(m => m.Id, opt => opt.MapFrom(src => src._id.ToString()))
                 .ForMember(m => m.NumeroCartao, opt => opt.MapFrom(src => src.NumeroCartao.Substring(12, 4).PadLeft(16, 'x')));

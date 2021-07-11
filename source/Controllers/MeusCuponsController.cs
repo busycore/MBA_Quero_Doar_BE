@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using source.Service;
 using source.ViewModel.MinhaConta;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace source.Controllers
@@ -22,7 +19,7 @@ namespace source.Controllers
         /// <summary>
         /// Método para consultar uma Cupom através do Id
         /// </summary>
-        /// <param name="id">Código do Cupom</param>
+        /// <param name="id">Código do Doador</param>
         /// <returns>Entidade ViewModel Cupom</returns>
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
