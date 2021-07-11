@@ -7,5 +7,6 @@
         public string NomeCartao { get; set; }
         public string NumeroCartao { get; set; }
         public string ValidadeCartao { get; set; }
+        public string StatusProcessamento { get; set; }
     }
 }

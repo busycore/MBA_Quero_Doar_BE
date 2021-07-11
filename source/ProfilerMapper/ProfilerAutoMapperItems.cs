@@ -51,6 +51,8 @@ namespace source.ProfilerMapper
             _ = CreateMap<Pagamento, MinhasDoacoesPagamentoVM>()
                 .ForMember(m => m.Id, opt => opt.MapFrom(src => src._id.ToString()))
                 .ForMember(m => m.NumeroCartao, opt => opt.MapFrom(src => src.NumeroCartao.Substring(12, 4).PadLeft(16, 'x')));
+
+            _ = CreateMap<CadastroPagamentoVM, Pagamento>();
         }
     }
 }
