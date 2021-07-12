@@ -28,6 +28,7 @@ namespace source.Service
         {
             bool _valido = false;
             string _nome = null;
+            string _userId = null;
             switch (dadosLogin.TipoLogin)
             {
                 case 'D':
@@ -35,6 +36,7 @@ namespace source.Service
                     if (_d != null && _d.Any())
                     {
                         _nome = _d.FirstOrDefault().Nome;
+                        _userId = _d.FirstOrDefault()._id.ToString();
                         _valido = true;
                     }
                     break;
@@ -44,6 +46,7 @@ namespace source.Service
                     if (_e != null && _e.Any())
                     {
                         _nome = _e.FirstOrDefault().Nome;
+                        _userId = _d.FirstOrDefault()._id.ToString();
                         _valido = true;
                     }
                     break;
@@ -53,18 +56,19 @@ namespace source.Service
                     if (_i != null && _i.Any())
                     {
                         _nome = _i.FirstOrDefault().Nome;
+                        _userId = _d.FirstOrDefault()._id.ToString();
                         _valido = true;
                     }
                     break;
             }
 
             if (_valido)
-                return CriarToken(_nome);
+                return CriarToken(_nome, _userId);
 
             return null;
         }
 
-        private DadosToken CriarToken(string nomeUsuario)
+        private DadosToken CriarToken(string nomeUsuario, string userId)
         {
             byte[] _key = Convert.FromBase64String("mlyDaLVs3SA0jQcHOlxZRiTZ0JvYvpGLxHN312KddWPHg8vlNSpXh0Xt61QelkEcz+UGnQ85fhMy/X0/cBmJAQ==");
             DateTime dataCriacao = DateTime.UtcNow;
@@ -87,7 +91,8 @@ namespace source.Service
             return new DadosToken()
             {
                 Token = handle.WriteToken(tokenSecurity),
-                DtValidade = dataExpiracao
+                DtValidade = dataExpiracao,
+                userId = userId
             };
         }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using source.Service;
 using source.ViewModel.Doador;
 using System.Threading.Tasks;
@@ -41,6 +42,7 @@ namespace source.Controllers
         /// <returns>Código do Doador</returns>
         [HttpPost]
         [ProducesResponseType(200)]
+        [AllowAnonymous]
         public async Task<ActionResult<string>> Salvar(CadastroDoadorVM cadastroDoadorVM)
         {
             string id = await _doadorService.Salvar(cadastroDoadorVM);
