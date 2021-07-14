@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using source.Service;
 using source.ViewModel.MinhaConta;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace source.Controllers
@@ -24,7 +25,7 @@ namespace source.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<DadosMeusCuponsVM>> Consultar(string id)
+        public async Task<ActionResult<IEnumerable<DadosMeusCuponsVM>>> Consultar(string id)
         {
             var dadosCupomVM = await _doacaoService.ListarMeusCupons(id);
 

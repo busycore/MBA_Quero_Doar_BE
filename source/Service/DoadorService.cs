@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MongoDB.Bson;
 using source.Models;
 using source.Service.Interfaces;
 using source.Service.Repository;
@@ -34,7 +33,9 @@ namespace source.Service
 
         public async Task<string> Salvar(CadastroDoadorVM cadastroDoadorVM)
         {
-            return "";
+            var _doador = _mapper.Map<Doador>(cadastroDoadorVM);
+            await _doadorRepository.InsertOrUpdateAsync(_doador);
+            return _doador._id.ToString();
         }
 
         public async Task Atualizar(AtualizaDoadorVM atualizaDoadorVM)

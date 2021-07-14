@@ -3,6 +3,7 @@ using source.Service.Interfaces;
 using source.Service.Repository;
 using source.ViewModel.Auth;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -46,7 +47,7 @@ namespace source.Service
                     if (_e != null && _e.Any())
                     {
                         _nome = _e.FirstOrDefault().Nome;
-                        _userId = _d.FirstOrDefault()._id.ToString();
+                        _userId = _e.FirstOrDefault()._id.ToString();
                         _valido = true;
                     }
                     break;
@@ -56,7 +57,7 @@ namespace source.Service
                     if (_i != null && _i.Any())
                     {
                         _nome = _i.FirstOrDefault().Nome;
-                        _userId = _d.FirstOrDefault()._id.ToString();
+                        _userId = _i.FirstOrDefault()._id.ToString();
                         _valido = true;
                     }
                     break;
@@ -77,15 +78,20 @@ namespace source.Service
 
             //-- cria parametros para o token
             JwtSecurityTokenHandler handle = new();
+            List<Claim> claims = new()
+            {
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
+                new Claim("user_id", userId)
+            };
             JwtSecurityToken tokenSecurity = handle.CreateJwtSecurityToken(new SecurityTokenDescriptor()
             {
-                Subject = new ClaimsIdentity(new GenericIdentity(nomeUsuario), null),
+                Subject = new ClaimsIdentity(new GenericIdentity(nomeUsuario), claims),
                 Issuer = "http://localhost:8080", //-- origem de criação do token
                 IssuedAt = dataCriacao, //-- data de criação do token
                 Audience = "", //-- recurso habilitado para login
                 Expires = dataExpiracao, //-- data de expiração\
                 NotBefore = dataCriacao.AddMinutes(-1), //-- inicio da possibilidade de utilização do token
-                SigningCredentials = creds, //-- forma de assinatura
+                SigningCredentials = creds //-- forma de assinatura
             });
 
             return new DadosToken()

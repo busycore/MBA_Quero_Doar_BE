@@ -39,6 +39,8 @@ namespace source.ProfilerMapper
             _ = CreateMap<DadosDoadorVM, Doador>()
                 .ForMember(m => m._id, opt => opt.MapFrom(src => new ObjectId(src.Id)));
 
+            _ = CreateMap<CadastroDoadorVM, Doador>();
+
             _ = CreateMap<Doacao, MinhasDoacoesVM>()
                 .ForMember(m => m.id, opt => opt.MapFrom(src => src._id.ToString()))
                 .ForMember(m => m.ValorDoado, opt => opt.MapFrom(src => src.Pagamento.Valor));
