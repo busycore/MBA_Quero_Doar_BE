@@ -1,12 +1,8 @@
 ﻿using AutoMapper;
-using MongoDB.Bson;
 using source.Models;
 using source.Service.Repository;
 using source.ViewModel.Instituicao;
-using source.ViewModel.SetorAtuacao;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace source.Service
@@ -22,9 +18,12 @@ namespace source.Service
             _mapper = mapper;
         }
 
-        public Task<IEnumerable<Instituicao>> GetAll()
+        public async Task<IEnumerable<DadosInstituicaoVM>> GetAll()
         {
-            return _instituicaoRepository.GetAllDocument();
+            var _inst = await _instituicaoRepository.GetAllDocument();
+            var _list = _mapper.Map<IEnumerable<DadosInstituicaoVM>>(_inst);
+
+            return _list;
         }
 
         public Task<Instituicao> ConsultarInstituicao(string id)

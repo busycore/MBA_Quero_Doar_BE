@@ -46,7 +46,6 @@ namespace source
             services.AddScoped<InstituicaoRepository>();
             services.AddScoped<IRepository<Instituicao>, InstituicaoRepository>();
 
-            services.AddScoped<PagamentoService>();
             services.AddScoped<PagamentoRepository>();
             services.AddScoped<IRepository<Pagamento>, PagamentoRepository>();
 

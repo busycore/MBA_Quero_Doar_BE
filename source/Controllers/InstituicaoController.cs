@@ -44,6 +44,9 @@ namespace source.Controllers
         public async Task<ActionResult<IEnumerable<DadosInstituicaoVM>>> GetAll()
         {
             var _all = await _instituicaoService.GetAll();
+
+
+
             return Ok(_all);
         }
 

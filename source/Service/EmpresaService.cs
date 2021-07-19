@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MongoDB.Bson;
 using source.Models;
 using source.Service.Interfaces;
 using source.Service.Repository;
@@ -25,9 +24,11 @@ namespace source.Service
             return _empresaRepository.GetDocumentByID(id);
         }
 
-        public Task<IEnumerable<Empresa>> GetAll()
+        public async Task<IEnumerable<DadosEmpresaVM>> GetAll()
         {
-            return _empresaRepository.GetAllDocument();
+            var _listRepo = await _empresaRepository.GetAllDocument();
+            var _list = _mapper.Map<IEnumerable<DadosEmpresaVM>>(_listRepo);
+            return _list;
         }
 
         public async Task<DadosEmpresaVM> Consultar(string id)

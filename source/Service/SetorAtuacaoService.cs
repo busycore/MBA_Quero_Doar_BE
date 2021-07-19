@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using source.Models;
 using source.Service.Interfaces;
 using source.Service.Repository;
 using source.ViewModel.SetorAtuacao;
@@ -23,7 +22,6 @@ namespace source.Service
         {
             var SetorAtuacaoTodos = await _setorAtuacaoRepository.GetAllDocument();
             var list = _mapper.Map<IEnumerable<DadosSetorAtuacaoVM>>(SetorAtuacaoTodos);
-
             return list;
         }
 

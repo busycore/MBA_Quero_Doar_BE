@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
-using MongoDB.Bson;
 using source.Models;
 using source.Service.Repository;
 using source.ViewModel.Cupom;
-using source.ViewModel.Empresa;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -28,9 +25,11 @@ namespace source.Service
             return _cupomRepository.GetDocumentByID(id);
         }
 
-        public Task<IEnumerable<Cupom>> GetAll()
+        public async Task<IEnumerable<DadosCupomVM>> GetAll()
         {
-            return _cupomRepository.GetAllDocument();
+            var _listRepo = await _cupomRepository.GetAllDocument();
+            var _list = _mapper.Map<IEnumerable<DadosCupomVM>>(_listRepo);
+            return _list;
         }
 
         public async Task<DadosCupomVM> Consultar(string id)

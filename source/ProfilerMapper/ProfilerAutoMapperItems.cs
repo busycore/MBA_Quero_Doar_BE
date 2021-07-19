@@ -21,6 +21,7 @@ namespace source.ProfilerMapper
 
             _ = CreateMap<Empresa, DadosEmpresaVM>()
                 .ForMember(m => m.Id, opt => opt.MapFrom(src => src._id.ToString()));
+
             _ = CreateMap<DadosEmpresaVM, Empresa>()
                 .ForMember(m => m._id, opt => opt.MapFrom(src => new ObjectId(src.Id)));
 
