@@ -1,6 +1,8 @@
+using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +16,7 @@ using source.Service.Data;
 using source.Service.Interfaces;
 using source.Service.Repository;
 using System;
+using System.Reflection.PortableExecutable;
 using System.Text.Json;
 
 namespace source
@@ -67,6 +70,12 @@ namespace source
             services.AddScoped<AuthService>();
 
             services.AddAutoMapper(typeof(Startup));
+            services.AddCors(options => options.AddDefaultPolicy(b =>
+            {
+                    b.AllowAnyMethod();
+                    b.AllowAnyHeader();
+                    b.AllowAnyOrigin();
+            }));
 
             services
                 .AddAuthentication(options =>
@@ -109,18 +118,19 @@ namespace source
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "source v1"));
-            }
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "source v1"));
 
-            app.UseHttpsRedirection();
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
             app.UseRouting();
-            app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
 
